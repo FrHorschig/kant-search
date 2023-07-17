@@ -1,0 +1,12 @@
+[submodule "kant-search-database"]
+	path = kant-search-database
+	url = https://github.com/FrHorschig/kant-search-database.git
+[submodule "kant-search-backend"]
+	path = kant-search-backend
+	url = https://github.com/FrHorschig/kant-search-backend.git
+[submodule "kant-search-api"]
+	path = kant-search-api
+	url = https://github.com/FrHorschig/kant-search-api.git
+[submodule "kant-search-frontend"]
+	path = kant-search-frontend
+	url = https://github.com/FrHorschig/kant-search-frontend.git

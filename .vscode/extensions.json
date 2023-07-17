@@ -1,0 +1,23 @@
+{
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=827846
+  "recommendations": [
+    // general: Docker
+    "ms-azuretools.vscode-docker",
+
+    // project-api: OpenAPI
+    "42Crunch.vscode-openapi",
+    "redhat.vscode-yaml",
+
+    // project-go-backend: Go
+    "golang.go",
+
+    // project-database: PostgreSQL
+    "mtxr.sqltools",
+    "mtxr.sqltools-driver-pg",
+
+    // project-frontend: Angular
+    "angular.ng-template",
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode"
+  ]
+}

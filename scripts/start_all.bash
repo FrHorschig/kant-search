@@ -15,7 +15,10 @@ function stop() {
 }
 trap stop SIGINT
 
-# Start database container
+# Build and run database container
+cd "${project}-database"
+make
+cd ..
 docker run --rm -e POSTGRES_PASSWORD=postgres -p 5432:5432 "$project"-database | prefix "DB" "34" &
 
 # Start frontend and backend with live reloading

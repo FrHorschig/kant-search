@@ -19,7 +19,7 @@ trap stop SIGINT
 cd "${project}-database"
 make
 cd ..
-docker run --rm -e POSTGRES_PASSWORD=postgres -p 5432:5432 "$project"-database | prefix "DB" "34" &
+docker run --rm -v volumes:/var/lib/postgresql/data -e POSTGRES_PASSWORD=postgres -p 5432:5432 "$project"-database | prefix "DB" "34" &
 
 # Start frontend and backend with live reloading
 cd "$project"-backend && source deployment/local_env.bash && ~/go/bin/modd | prefix "Go" "32" &

@@ -1,5 +1,5 @@
 **/node_modules
-volumes
+volumes*
 kant-search-utils
 
 # local dev setup: Postman and SonarQube

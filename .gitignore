@@ -1,6 +1,7 @@
 scratch*
 **/node_modules
 volumes*
+vols*
 kant-search-utils
 
 # local dev setup: Postman and SonarQube

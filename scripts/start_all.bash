@@ -22,12 +22,14 @@ cd ..
 docker run --rm \
     -u "$USER" \
     -v "$(pwd)"/volumes:/var/lib/postgresql/data \
-    -e POSTGRES_PASSWORD=postgres \
+    -e POSTGRES_USER=kantsearch \
+    -e POSTGRES_PASSWORD=kantsearch \
+    -e POSTGRES_DB=kantsearch \
     -p 5432:5432 \
     "$project"-database | prefix "DB" "34" &
 
 # Start frontend and backend with live reloading
 cd "$project"-backend && source deployment/local_env.bash && ~/go/bin/modd | prefix "Go" "32" &
-cd "$project"-frontend && ng serve --ssl | prefix "Ng" "31" &
+# cd "$project"-frontend && ng serve --ssl | prefix "Ng" "31" &
 
 wait

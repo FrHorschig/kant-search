@@ -20,7 +20,6 @@ cd "${project}-database"
 make
 cd ..
 docker run --rm \
-    -u "$USER" \
     -v "$(pwd)"/volumes:/var/lib/postgresql/data \
     -e POSTGRES_USER=kantsearch \
     -e POSTGRES_PASSWORD=kantsearch \
@@ -30,6 +29,6 @@ docker run --rm \
 
 # Start backend and frontend with live reloading
 cd "$project"-backend && source deployment/local_env.bash && ~/go/bin/modd | prefix "Go" "32" &
-# cd "$project"-frontend && ng serve --ssl | prefix "Ng" "31" &
+cd "$project"-frontend && ng serve --ssl | prefix "Ng" "31" &
 
 wait

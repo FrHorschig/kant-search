@@ -1,6 +1,7 @@
 scratch*
 **/node_modules
 volumes*
+vols*
 go.work.sum
 kant-search-utils
 

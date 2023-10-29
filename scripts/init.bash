@@ -9,8 +9,8 @@ cd "$project"-api && git checkout main
 cd ..
 
 cd "$project"-backend && git checkout main
-cd src_py
 go generate ./...
+cd src_py
 python -m venv .venv
 source .venv/bin/activate
 pip install -U pip setuptools wheel

@@ -6,7 +6,6 @@ go.work.sum
 kant-search-utils
 
 # local dev setup: Postman and SonarQube
-Postman
 sonar-scanner*
 scan-sonar.bash
 .scannerwork

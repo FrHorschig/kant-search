@@ -11,9 +11,11 @@ generate_go_server() {
   rm "$project"-backend/src/"$project"-api-generated -r
   rm "$project"-api/src/generated-server-go -r
   mkdir "$project"-api/src/generated-server-go 
-  node node_modules/@openapitools/openapi-generator-cli/main.js generate \
-      -i "$project"-api/src/openapi/openapi.yaml \
-      -o "$project"-api/src/generated-server-go/ \
+  docker run --rm \
+      -v "${PWD}:/local" \
+      openapitools/openapi-generator-cli generate \
+      -i /local/"$project"-api/src/openapi/openapi.yaml \
+      -o /local/"$project"-api/src/generated-server-go \
       -g go-echo-server \
       --git-user-id=FrHorschig \
       --git-repo-id="$project"-api
@@ -28,13 +30,15 @@ generate_go_server() {
 
 generate_ts_client() {
   rm "$project"-api/src/generated-client-ts -r && mkdir "$project"-api/src/generated-client-ts
-  node node_modules/@openapitools/openapi-generator-cli/main.js generate \
-      -i "$project"-api/src/openapi/openapi.yaml \
-      -o "$project"-api/src/generated-client-ts/ \
+  docker run --rm \
+      -v "${PWD}:/local" \
+      openapitools/openapi-generator-cli generate \
+      -i /local/"$project"-api/src/openapi/openapi.yaml \
+      -o /local/"$project"-api/src/generated-client-ts \
       -g typescript-angular \
-      --additional-properties npmName="$project"-api \
-      --enable-post-process-file \
-      --git-user-id="$userid" \
+      -p npmName="$project"-api \
+      -p ngVersion=15.2.0 \
+      --git-user-id=FrHorschig \
       --git-repo-id="$project"-api
   cd "$project"-api/src/generated-client-ts
   npm install && npm run build

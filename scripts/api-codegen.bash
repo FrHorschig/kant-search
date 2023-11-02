@@ -17,10 +17,10 @@ generate_go_server() {
       -i /local/"$project"-api/src/openapi/openapi.yaml \
       -o /local/"$project"-api/src/generated-server-go \
       -g go-echo-server \
-      --git-user-id=FrHorschig \
+      --git-user-id="$userid" \
       --git-repo-id="$project"-api
   cp "$project"-api/src/generated-server-go "$project"-backend/src/"$project"-api-generated -r
-  LINE="replace github.com/FrHorschig/"$project"-api => ./"$project"-api-generated"
+  LINE="replace github.com/"$userid"/"$project"-api => ./"$project"-api-generated"
   FILE=""$project"-backend/src/go.mod"
   if ! grep -qF -- "$LINE" "$FILE"; then
     echo "$LINE" >> "$FILE"
@@ -36,9 +36,9 @@ generate_ts_client() {
       -i /local/"$project"-api/src/openapi/openapi.yaml \
       -o /local/"$project"-api/src/generated-client-ts \
       -g typescript-angular \
-      -p npmName="$project"-api \
+      -p npmName="@frhorschig/$project"-api \
       -p ngVersion=15.2.0 \
-      --git-user-id=FrHorschig \
+      --git-user-id="$userid" \
       --git-repo-id="$project"-api
   cd "$project"-api/src/generated-client-ts
   npm install && npm run build

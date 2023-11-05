@@ -4,51 +4,55 @@
 # to only generate the typescript client. Using '-gt' or no option generates
 # both.
 
-project="kant-search"
-userid="FrHorschig"
-
 generate_go_server() {
-  rm "$project"-backend/src/"$project"-api-generated -r
-  rm "$project"-api/src/generated-server-go -r
-  mkdir "$project"-api/src/generated-server-go 
+  rm kant-search-backend/src/kant-search-api-generated -r
+  rm kant-search-api/src/generated-server-go -r
+  mkdir kant-search-api/src/generated-server-go 
   docker run --rm \
       -v "${PWD}:/local" \
       openapitools/openapi-generator-cli generate \
-      -i /local/"$project"-api/src/openapi/openapi.yaml \
-      -o /local/"$project"-api/src/generated-server-go \
+      -i /local/kant-search-api/src/openapi/openapi.yaml \
+      -o /local/kant-search-api/src/generated-server-go \
       -g go-echo-server \
-      --git-user-id="$userid" \
-      --git-repo-id="$project"-api
-  cp "$project"-api/src/generated-server-go "$project"-backend/src/"$project"-api-generated -r
-  LINE="replace github.com/"$userid"/"$project"-api => ./"$project"-api-generated"
-  FILE=""$project"-backend/src/go.mod"
+      --git-user-id=frhorschig \
+      --git-repo-id=kant-search-api
+  cp kant-search-api/src/generated-server-go kant-search-backend/src/kant-search-api-generated -r
+
+  cd kant-search-backend
+  LINE="replace github.com/frhorschig/kant-search-api => ./kant-search-api-generated"
+  echo "$LINE" > go.mod
+  FILE="src/go.mod"
   if ! grep -qF -- "$LINE" "$FILE"; then
     echo "$LINE" >> "$FILE"
   fi
+  cd ..
 }
 
 
 generate_ts_client() {
-  rm "$project"-api/src/generated-client-ts -r && mkdir "$project"-api/src/generated-client-ts
+  rm kant-search-api/src/generated-client-ts -r && mkdir kant-search-api/src/generated-client-ts
   docker run --rm \
       -v "${PWD}:/local" \
       openapitools/openapi-generator-cli generate \
-      -i /local/"$project"-api/src/openapi/openapi.yaml \
-      -o /local/"$project"-api/src/generated-client-ts \
+      -i /local/kant-search-api/src/openapi/openapi.yaml \
+      -o /local/kant-search-api/src/generated-client-ts \
       -g typescript-angular \
       -p npmName="@frhorschig/$project"-api \
       -p ngVersion=15.2.0 \
-      --git-user-id="$userid" \
-      --git-repo-id="$project"-api
-  cd "$project"-api/src/generated-client-ts
+      --git-user-id=frhorschig \
+      --git-repo-id=kant-search-api
+
+  cd kant-search-api/src/generated-client-ts
   npm install && npm run build
   cd dist
   npm pack
-  cd ../../../../"$project"-frontend/
-  rm "$project"-api-generated -r
-  mkdir "$project"-api-generated
-  cp ../"$project"-api/src/generated-client-ts/dist/*.tgz "$project"-api-generated/
-  npm install ./"$project"-api-generated/*.tgz
+
+  cd ../../../../kant-search-frontend/
+  rm kant-search-api-generated -r
+  mkdir kant-search-api-generated
+  cp ../kant-search-api/src/generated-client-ts/dist/*.tgz kant-search-api-generated/
+  npm install ./kant-search-api-generated/*.tgz
+  cd ..
 }
 
 

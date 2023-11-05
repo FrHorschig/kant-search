@@ -1,14 +1,12 @@
 #!/bin/bash
 
-project="kant-search"
-
 git submodule update --init --recursive
 npm install
 
-cd "$project"-api && git checkout main
+cd kant-search-api && git checkout main
 cd ..
 
-cd "$project"-backend && git checkout main
+cd kant-search-backend && git checkout main
 go generate ./...
 cd src_py
 python -m venv .venv
@@ -19,11 +17,11 @@ python -m spacy download de_core_news_sm
 deactivate
 cd ../..
 
-cd "$project"-database && git checkout main
-docker build -f ./deployment/Dockerfile -t "$project"-database .
+cd kant-search-database && git checkout main
+make
 cd ..
 
-cd "$project"-frontend && git checkout main
+cd kant-search-frontend && git checkout main
 npm install
 cd ..
 

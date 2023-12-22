@@ -23,7 +23,7 @@ docker run --rm \
     -e POSTGRES_PASSWORD=kantsearch \
     -e POSTGRES_DB=kantsearch \
     -p 5432:5432 \
-    ghcr.io/frhoschig/kant-search-database | prefix "DB" "34" &
+    ghcr.io/frhorschig/kant-search-database:latest | prefix "DB" "34" &
 
 # Start backend and frontend with live reloading
 cd kant-search-backend && source deployment/local_env.bash && ~/go/bin/modd | prefix "Go" "32" &

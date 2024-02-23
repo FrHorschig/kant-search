@@ -16,6 +16,7 @@ In order for this setup to function correctly, ensure that you have:
 - built the database container: go to kant-search-database and run `make`
 - have Modd installed in the ~/go/bin/ directory (for live-reloading of the backend application): execute the following command in the backend directory: go install github.com/cortesi/modd/cmd/modd@latest
 - have a working python installation (needed for the python virtual environment used in the backend)
+- SSL configuration: for testing with Firefox, import the `myCa.pem` certificate
 
 ## SonarQube integration
 

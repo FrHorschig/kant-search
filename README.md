@@ -20,4 +20,6 @@ In order for this setup to function correctly, ensure that you have:
 
 ## SonarQube integration
 
-You can run the sonar-scanner in a docker container and send the result to 'localhost:9000' using the 'run_sonar_scanner.bash' script. The docker commands in the script assume that the project keys are 'kant-search-backend' and 'kant-search-frontend', that the env var `KANT_SEARCH_ROOT` contains the absolute path of the kant-search repository directory and the `SONAR_TOKEN_BACKEND` and `SONAR_TOKEN_FRONTEND` env vars contain the SonarQube project tokens.
+To start a SonarQube docker container, run `docker run -d --name sonarqube -p 9000:9000 sonarqube`.
+
+You can run the sonar-scanner in a docker container and send the result to 'localhost:9000' using the 'run_sonar_scanner.bash' script. The docker commands in the script assume that the project keys are 'kant-search-backend' and 'kant-search-frontend', that the environment variable `KANT_SEARCH_ROOT` contains the absolute path of the kant-search repository directory and the `SONAR_TOKEN_BACKEND` and `SONAR_TOKEN_FRONTEND` environment variables contain the SonarQube project tokens.

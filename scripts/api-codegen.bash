@@ -38,7 +38,7 @@ generate_ts_client() {
       -o /local/kant-search-api/src/generated-client-ts \
       -g typescript-angular \
       -p npmName="@frhorschig/$project"-api \
-      -p ngVersion=15.2.0 \
+      -p ngVersion=17.2.2 \
       --git-user-id=frhorschig \
       --git-repo-id=kant-search-api
 

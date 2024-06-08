@@ -2,11 +2,13 @@
 
 analyze_backend() {
     cd kant-search-backend/src
-    go test ./... -tags=integration,unit -coverprofile coverage.out 
+    go test ./... -tags=integration,unit -coverprofile coverage.out
+    mkdir -p .sonar/cache .scannerwork && chmod -R 777 .sonar .scannerwork
     cd ../..
     docker run --rm \
         --network=host \
         -e SONAR_HOST_URL="http://localhost:9000" \
+        -e SONAR_USER_HOME=".sonar" \
         -e SONAR_SCANNER_OPTS="-Dsonar.projectKey=kant-search-backend" \
         -e SONAR_TOKEN="${SONAR_TOKEN_BACKEND}" \
         -v "${KANT_SEARCH_ROOT}/kant-search-backend/src:/usr/src" \
@@ -16,10 +18,12 @@ analyze_backend() {
 analyze_frontend() {
     cd kant-search-frontend/
     ng test --watch=false --code-coverage
+    mkdir -p .sonar/cache .scannerwork && chmod -R 777 .sonar .scannerwork
     cd ..
     docker run --rm \
         --network=host \
         -e SONAR_HOST_URL="http://localhost:9000" \
+        -e SONAR_USER_HOME=".sonar" \
         -e SONAR_SCANNER_OPTS="-Dsonar.projectKey=kant-search-frontend -Dsonar.scm.disabled=True" \
         -e SONAR_TOKEN="${SONAR_TOKEN_FRONTEND}" \
         -v "${KANT_SEARCH_ROOT}/kant-search-frontend:/usr/src" \

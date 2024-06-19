@@ -8,7 +8,7 @@ function prefix() {
     done
 }
 function stop() {
-    pkill -f "kant-search-go-backend"
+    pkill -f "kant-search-backend"
     kill %2 %3
 }
 trap stop SIGINT
@@ -33,7 +33,7 @@ docker run --rm \
 # backend
 export KSGO_DB_HOST=localhost
 export KSGO_DB_SSLMODE=disable
-export KSGO_ALLOW_ORIGINS=http://localhost:4200
+export KSGO_ALLOW_ORIGINS=*
 export KSGO_DISABLE_SSL=true
 export KSGO_PYTHON_BIN_PATH="src_py/.venv/bin/python3"
 export KSGO_PYTHON_SCRIPT_PATH="src_py/split_text.py"

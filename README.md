@@ -2,10 +2,12 @@
 
 This project aims to make the works of the philosopher Immanuel Kant easily accessible and searchable. The project consists of four parts:
 
-- the [frontend](https://github.com/FrHorschig/kant-search-frontend) provides the website to read and search the text, it is implemented as an [Angular](https://angular.dev/) website
+- the [frontend](https://github.com/FrHorschig/kant-search-frontend) provides the website to read and search the text, it is implemented as an [Angular](https://angular.dev/) web application
 - the [API specification](https://github.com/FrHorschig/kant-search-api) defines an API to fetch text and search data using the [OpenAPI specification format](https://swagger.io/)
 - the [backend](https://github.com/FrHorschig/kant-search-backend) is a [Go](https://go.dev/) server that implements th API endpoints defined by the OpenAPI specification
 - the [database](https://github.com/FrHorschig/kant-search-database) is a [PostgreSQL](https://www.postgresql.org/) database that holds the text data; it also provides the search logic
+
+This application is currently under development.
 
 ## Contributing
 

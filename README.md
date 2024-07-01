@@ -1,13 +1,11 @@
 # KantSearch
 
-This project aims to make the works of the philosopher Immanuel Kant easily accessible and searchable. The project consists of four parts:
+This project aims to make the works of the philosopher Immanuel Kant easily accessible and searchable. It consists of four parts:
 
-- the [frontend](https://github.com/FrHorschig/kant-search-frontend) provides the website to read and search the text, it is implemented as an [Angular](https://angular.dev/) web application
-- the [API specification](https://github.com/FrHorschig/kant-search-api) defines an API to fetch text and search data using the [OpenAPI specification format](https://swagger.io/)
-- the [backend](https://github.com/FrHorschig/kant-search-backend) is a [Go](https://go.dev/) server that implements th API endpoints defined by the OpenAPI specification
-- the [database](https://github.com/FrHorschig/kant-search-database) is a [PostgreSQL](https://www.postgresql.org/) database that holds the text data; it also provides the search logic
-
-This application is currently under development.
+- the [frontend](https://github.com/FrHorschig/kant-search-frontend) provides a website to read and search the text, it is implemented as an [Angular](https://angular.dev/) web application
+- the [API specification](https://github.com/FrHorschig/kant-search-api) defines an API to fetch and search the texts using the [OpenAPI specification format](https://swagger.io/)
+- the [backend](https://github.com/FrHorschig/kant-search-backend) is a [Go](https://go.dev/) server that implements th API endpoints defined by the OpenAPI specification and provides endpoints for adding and updating texts
+- the [database](https://github.com/FrHorschig/kant-search-database) is a [PostgreSQL](https://www.postgresql.org/) database that holds the text data; it also provides the search logic by using the PostgreSQL [full-text search feature](https://www.postgresql.org/docs/current/textsearch.html)
 
 ## Contributing
 
@@ -16,9 +14,6 @@ If you want to improve the codebase of one of the submodules, please refer to th
 ## Installation
 
 Please refer to the README files of the submodules for information about the installation process.
-
-The submodules are versioned independently.
-TODO: add table with versions that go together
 
 ## Development setup
 

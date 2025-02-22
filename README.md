@@ -9,7 +9,7 @@ This project aims to make the works of the philosopher Immanuel Kant easily acce
 
 ## Contributing
 
-If you want to improve the codebase of one of the submodules, please refer to the relevant submodule README file. If you have other comments or improvements, don't hesitate to get in contact via [email](mailto:frhorschig@mailbox.org) in German or English.
+If you want to improve the codebase of one of the submodules, please refer to the relevant submodule README file. If you have other comments or improvements, don't hesitate to get in contact via [email](mailto:frhorschig-coding@mailbox.org) in German or English.
 
 ## Installation
 

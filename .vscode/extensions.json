@@ -11,10 +11,6 @@
     // project-go-backend: Go
     "golang.go",
 
-    // project-database: PostgreSQL
-    "mtxr.sqltools",
-    "mtxr.sqltools-driver-pg",
-
     // project-frontend: Angular
     "angular.ng-template",
     "dbaeumer.vscode-eslint",

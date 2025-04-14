@@ -1,14 +1,30 @@
 {
-  "sqltools.connections": [
-    {
-      "previewLimit": 50,
-      "server": "localhost",
-      "port": 5432,
-      "driver": "PostgreSQL",
-      "name": "KantSearch-Database",
-      "database": "postgres",
-      "username": "postgres",
-      "password": "postgres"
-    }
+  "cSpell.words": [
+    "dataaccess",
+    "dbmodel",
+    "deletebyquery",
+    "emph",
+    "esmodel",
+    "estest",
+    "etree",
+    "fnref",
+    "formel",
+    "GOFILE",
+    "gomock",
+    "kant",
+    "KSDB",
+    "KSGO",
+    "mockgen",
+    "operationtype",
+    "plainto",
+    "pyutil",
+    "romzahl",
+    "seite",
+    "spacy",
+    "stretchr",
+    "trafo",
+    "trenn",
+    "tsquery",
+    "zeile"
   ]
 }

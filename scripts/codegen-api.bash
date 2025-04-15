@@ -10,14 +10,14 @@ generate_go_server() {
   mkdir kant-search-api/src/generated-server-go
   docker run --rm \
       -v "${PWD}:/local" \
+      openapitools/openapi-generator-cli generate \
       -i /local/kant-search-api/src/openapi/openapi.yaml \
       -o /local/kant-search-api/src/generated-server-go \
-      -g go-echo-server \
-      openapitools/openapi-generator-cli generate
+      -g go-echo-server
   cp kant-search-api/src/generated-server-go kant-search-backend/src/kant-search-api-generated -r
 
   cd kant-search-backend
-  LINE="replace github.com/frhorschig/kant-search-api => ./kant-search-api-generated"
+  LINE="replace github.com/frhorschig/kant-search-api/src/go => ./kant-search-api-generated"
   echo "$LINE" > go.mod
   FILE="src/go.mod"
   if ! grep -qF -- "$LINE" "$FILE"; then
@@ -30,12 +30,12 @@ generate_ts_client() {
   rm kant-search-api/src/generated-client-ts -r && mkdir kant-search-api/src/generated-client-ts
   docker run --rm \
       -v "${PWD}:/local" \
+      openapitools/openapi-generator-cli generate \
       -i /local/kant-search-api/src/openapi/openapi.yaml \
       -o /local/kant-search-api/src/generated-client-ts \
       -g typescript-angular \
       -p npmName="@frhorschig/$project"-api \
       -p ngVersion=17.2.2 \
-      openapitools/openapi-generator-cli generate
 
   cd kant-search-api/src/generated-client-ts
   npm install && npm run build

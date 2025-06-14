@@ -1,5 +1,12 @@
 {
   "cSpell.words": [
+    "apiread",
+    "apisearch",
+    "apiupload",
+    "commonutil",
+    "coreread",
+    "coresearch",
+    "coreupload",
     "dataaccess",
     "dbmodel",
     "deletebyquery",
@@ -15,16 +22,23 @@
     "KSDB",
     "KSGO",
     "mockgen",
+    "openapi",
     "operationtype",
     "plainto",
     "pyutil",
     "romzahl",
     "seite",
+    "siglum",
+    "sortorder",
     "spacy",
     "stretchr",
+    "summs",
     "trafo",
+    "treemodel",
     "trenn",
     "tsquery",
+    "typedapi",
+    "Vorkritische",
     "zeile"
   ]
 }

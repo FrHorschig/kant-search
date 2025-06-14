@@ -37,19 +37,6 @@ You can start the database container, the backend and the frontend locally by ru
 
 You can generate Go and Typescript code from the OpenAPI specification in kant-search-api locally for easier development. Run the script `scripts/codegen-api.bash` to generate both the Go backend code and the Typescript frontend code. If you only want one or the other, use the `-t` (Typescript) or `-g` (Go) option.
 
-### SonarQube analysis
+### Local SonarQube analysis
 
-You can use Docker to run a SonarQube analysis locally. Use the following commands to set up the SonarQube container:
-
-```bash
-docker volume create sonarqube_data
-docker run -d --name sonarqube \
-  -e SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true \
-  -v sonarqube_data:/opt/sonarqube/data \
-  -v sonarqube_data:/opt/sonarqube/conf \
-  -v sonarqube_data:/opt/sonarqube/extensions \
-  -v sonarqube_data:/opt/sonarqube/logs \
-  -p 9000:9000 sonarqube:latest
-```
-
-You then have to navigate to [http://localhost:9000], login as user 'admin' with the password 'admin' and change the password (this has to be done only once at the first setup). After that you can create projects for the front- and backend. If you write the tokens for the projects to the environment variables `SONAR_TOKEN_FRONTEND` and `SONAR_TOKEN_BACKEND`, you can use the script 'run_sonar_scanner.bash' in the 'scripts' directory to run a SonarScanner container and analyze the frontend and backend code. You also need to put the absolute path to the kant-search repository directory into the environment variable `KANT_SEARCH_ROOT`. You can analyze the frontend code on its own by using the `-t` (t for Typescript) option of the script or only the backend code by using the `-g` (g for Go) option.
+You can use Docker to run a SonarQube analysis locally. Run the script 'run_sonar_scanner.bash' with the option `-s` to start a local SonarQube container. Navigate to [localhost:8000](http://localhost:8000) and wait for SonarQube to start up. Then login as user 'admin' with the password 'admin' and change the password (this has to be done only once at the first setup). After that you can create projects for the front- and backend. If you write the tokens for the projects to the environment variables `SONAR_TOKEN_FRONTEND` and `SONAR_TOKEN_BACKEND`, and put the absolute path to the kant-search repository directory into the environment variable `KANT_SEARCH_ROOT`, you can use the script 'run_sonar_scanner.bash' in the 'scripts' directory to run a SonarScanner container. Analyze the frontend code by using the `-t` (t for Typescript) option of the script or the backend code by using the `-g` (g for Go) option.

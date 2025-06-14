@@ -18,7 +18,6 @@ generate_go_server() {
 
   cd kant-search-backend
   LINE="replace github.com/frhorschig/kant-search-api/src/go => ./kant-search-api-generated"
-  echo "$LINE" > go.mod
   FILE="src/go.mod"
   if ! grep -qF -- "$LINE" "$FILE"; then
     echo "$LINE" >> "$FILE"
@@ -34,8 +33,8 @@ generate_ts_client() {
       -i /local/kant-search-api/src/openapi/openapi.yaml \
       -o /local/kant-search-api/src/generated-client-ts \
       -g typescript-angular \
-      -p npmName="@frhorschig/$project"-api \
-      -p ngVersion=17.2.2 \
+      -p npmName="@frhorschig/kant-search-api" \
+      -p ngVersion=19.2.11 \
 
   cd kant-search-api/src/generated-client-ts
   npm install && npm run build

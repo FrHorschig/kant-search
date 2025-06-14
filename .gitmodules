@@ -1,6 +1,3 @@
-[submodule "kant-search-database"]
-	path = kant-search-database
-	url = https://github.com/FrHorschig/kant-search-database.git
 [submodule "kant-search-backend"]
 	path = kant-search-backend
 	url = https://github.com/FrHorschig/kant-search-backend.git

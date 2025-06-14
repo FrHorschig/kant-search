@@ -2,10 +2,6 @@
 
 git submodule update --init --recursive
 
-cd kant-search-database
-make
-cd ..
-
 cd kant-search-backend
 go generate ./...
 cd src_py

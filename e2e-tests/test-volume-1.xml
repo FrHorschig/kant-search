@@ -1,0 +1,408 @@
+<!-- This dummy volume contains dummy xml elements: for each type defined in the dtd file one element with all possible sub elements. It is used to test the xml upload in e2e tests. -->
+<?xml version="1.0" encoding="UTF-8"?>
+
+<kant_abt1>
+  <band nr="01">
+    <titel>Dummy Volume 1</titel>
+
+    <hauptteil>
+      <hj>1789</hj>
+
+      <op nr="1"></op>
+      <seite nr="001"/>
+      <h1>
+        <!-- The dtd does not allow all of these child element types in every hx element, but the xml parsing is programmed to allow the maximum number of child element types to make the code more robust against accidental mismatch between an xml and the dtd. -->
+        <hi><zeile nr="01"/> only in table of contents</hi>
+        <zeile nr="02"/> Head<trenn/>ing 1
+        <zeile nr="03"/><fremdsprache sprache="lat">latin text</fremdsprache>
+        <zeile nr="04"/><romzahl>VII</romzahl>
+        <zeile nr="05"/><gesperrt>text</gesperrt>
+        <zeile nr="06"/><name>name</name>
+        <zeile nr="07"/><fett>text</fett>
+        <zeile nr="08"/><fr seite="001" nr="1">*)</fr>
+        <op nr="2"/>
+        <seite nr="002"/>
+        <hu><zeile nr="01"/> only in text</hu>
+      </h1>
+
+      <p><zeile nr="02"/>paragraph first h2</p>
+
+      <hu>
+        <zeile nr="03"/> only in text
+        <zeile nr="04"/><fremdsprache sprache="lat">latin text</fremdsprache>
+        <zeile nr="05"/><romzahl>VII</romzahl>
+        <zeile nr="06"/><gesperrt>text</gesperrt>
+        <zeile nr="07"/><name>name</name>
+        <zeile nr="08"/><fett>text</fett>
+        <zeile nr="09"/><em1>text</em1>
+        <zeile nr="10"/><fr seite="002" nr="1">*)</fr>
+        <op nr="3"/>
+        <seite nr="003"/>
+      </hu>
+
+      <seite nr="004"/>
+      <h2>
+        <hi><zeile nr="01"/> only in table of contents</hi>
+        <zeile nr="02"/> Head<trenn/>ing 2
+        <zeile nr="03"/><fremdsprache sprache="lat">latin text</fremdsprache>
+        <zeile nr="04"/><romzahl>VII</romzahl>
+        <zeile nr="05"/><gesperrt>text</gesperrt>
+        <zeile nr="06"/><name>name</name>
+        <zeile nr="07"/><fett>text</fett>
+        <zeile nr="08"/><fr seite="003" nr="1">*)</fr>
+        <op nr="4"/>
+        <seite nr="005"/>
+        <hu><zeile nr="01"/> only in text</hu>
+      </h2>
+
+      <seite nr="006"/>
+      <h3>
+        <hi><zeile nr="01"/> only in table of contents</hi>
+        <zeile nr="02"/> Head<trenn/>ing 3
+        <zeile nr="03"/><fremdsprache sprache="lat">latin text</fremdsprache>
+        <zeile nr="04"/><romzahl>VII</romzahl>
+        <zeile nr="05"/><gesperrt>text</gesperrt>
+        <zeile nr="06"/><name>name</name>
+        <zeile nr="07"/><fett>text</fett>
+        <zeile nr="08"/><fr seite="005" nr="1">*)</fr>
+        <op nr="5"/>
+        <seite nr="007"/>
+        <hu><zeile nr="01"/> only in text</hu>
+      </h3>
+
+      <seite nr="008"/>
+      <h4>
+        <hi><zeile nr="01"/> only in table of contents</hi>
+        <zeile nr="02"/> Head<trenn/>ing 4
+        <zeile nr="03"/><fremdsprache sprache="lat">latin text</fremdsprache>
+        <zeile nr="04"/><romzahl>VII</romzahl>
+        <zeile nr="05"/><gesperrt>text</gesperrt>
+        <zeile nr="06"/><name>name</name>
+        <zeile nr="07"/><fett>text</fett>
+        <zeile nr="08"/><fr seite="008" nr="1">*)</fr>
+        <op nr="6"/>
+        <seite nr="009"/>
+        <hu><zeile nr="01"/> only in text</hu>
+      </h4>
+
+      <seite nr="011"/>
+      <h5>
+        <hi><zeile nr="01"/> only in table of contents</hi>
+        <zeile nr="02"/> Head<trenn/>ing 5
+        <zeile nr="03"/><fremdsprache sprache="lat">latin text</fremdsprache>
+        <zeile nr="04"/><romzahl>VII</romzahl>
+        <zeile nr="05"/><gesperrt>text</gesperrt>
+        <zeile nr="06"/><name>name</name>
+        <zeile nr="07"/><fett>text</fett>
+        <zeile nr="08"/><fr seite="011" nr="1">*)</fr>
+        <op nr="7"/>
+        <seite nr="012"/>
+        <hu><zeile nr="01"/> only in text</hu>
+      </h5>
+
+      <seite nr="013"/>
+      <h6>
+        <hi><zeile nr="01"/> only in table of contents</hi>
+        <zeile nr="02"/> Head<trenn/>ing 6
+        <zeile nr="03"/><fremdsprache sprache="lat">latin text</fremdsprache>
+        <zeile nr="04"/><romzahl>VII</romzahl>
+        <zeile nr="05"/><gesperrt>text</gesperrt>
+        <zeile nr="06"/><name>name</name>
+        <zeile nr="07"/><fett>text</fett>
+        <zeile nr="08"/><fr seite="013" nr="1">*)</fr>
+        <op nr="8"/>
+        <seite nr="014"/>
+        <hu><zeile nr="01"/> only in text</hu>
+      </h6>
+
+      <seite nr="015"/>
+      <h7>
+        <hi><zeile nr="01"/> only in table of contents</hi>
+        <zeile nr="02"/> Head<trenn/>ing 7
+        <zeile nr="03"/><fremdsprache sprache="lat">latin text</fremdsprache>
+        <zeile nr="04"/><romzahl>VII</romzahl>
+        <zeile nr="05"/><gesperrt>text</gesperrt>
+        <zeile nr="06"/><name>name</name>
+        <zeile nr="07"/><fett>text</fett>
+        <zeile nr="08"/><fr seite="015" nr="1">*)</fr>
+        <op nr="9"/>
+        <seite nr="016"/>
+        <hu><zeile nr="01"/> only in text</hu>
+      </h7>
+
+      <seite nr="017"/>
+      <h8>
+        <hi><zeile nr="01"/> only in table of contents</hi>
+        <zeile nr="02"/> Head<trenn/>ing 8
+        <zeile nr="03"/><fremdsprache sprache="lat">latin text</fremdsprache>
+        <zeile nr="04"/><romzahl>VII</romzahl>
+        <zeile nr="05"/><gesperrt>text</gesperrt>
+        <zeile nr="06"/><name>name</name>
+        <zeile nr="07"/><fett>text</fett>
+        <zeile nr="08"/><fr seite="017" nr="1">*)</fr>
+        <op nr="10"/>
+        <seite nr="018"/>
+        <hu><zeile nr="01"/> only in text</hu>
+      </h8>
+
+      <seite nr="021"/>
+      <h9>
+        <hi><zeile nr="01"/> only in table of contents</hi>
+        <zeile nr="02"/> Head<trenn/>ing 9
+        <zeile nr="03"/><fremdsprache sprache="lat">latin text</fremdsprache>
+        <zeile nr="04"/><romzahl>VII</romzahl>
+        <zeile nr="05"/><gesperrt>text</gesperrt>
+        <zeile nr="06"/><name>name</name>
+        <zeile nr="07"/><fett>text</fett>
+        <zeile nr="08"/><fr seite="021" nr="1">*)</fr>
+        <op nr="11"/>
+        <seite nr="022"/>
+        <hu><zeile nr="01"/> only in text</hu>
+      </h9>
+
+      <p>
+        <zeile nr="02"/>te<trenn/>xt <!-- later: test text without zeile at the start -->
+        <seite nr="023"/>
+        <op nr="12"/>
+        <zeile nr="01"/><fr seite="023" nr="1">*)</fr>
+        <zeile nr="02"/><fremdsprache sprache="lat">latin text</fremdsprache>
+        <zeile nr="03"/><romzahl>II</romzahl>
+        <zeile nr="04"/><gesperrt>gesperrt</gesperrt>
+        <zeile nr="05"/><antiqua>antiqua</antiqua>
+        <zeile nr="06"/><name>name</name>
+        <zeile nr="07"/><fett>fett</fett>
+        <zeile nr="08"/><formel>formel</formel>
+        <zeile nr="10"/><em1>em1</em1>
+        <zeile nr="11"/><em2>em2</em2>
+        <zeile nr="12"/>
+        <bildverweis
+          src="imgRef1"
+          beschreibung="description"
+          typ="grafik"
+          Ort="Ort"
+          z_anfang="13"
+          z_ende="21"
+          ausrichtung="zentriert"
+          />
+          <zeile nr="22"/>
+          <bild
+            src="img1"
+            beschreibung="description"
+            typ="tabelle"
+            Ort="Ort"
+            z_anfang="22"
+            z_ende="28"
+            ausrichtung="rechts"
+          />
+        <table><tr><td>cell</td></tr></table>
+      </p>
+
+      <seite nr="025"/>
+      <p>
+        <!-- later: test line number reset without page change -->
+        <zeile nr="01"/><fremdsprache sprache="lat">latin text</fremdsprache>
+        <zeile nr="02"/><fremdsprache sprache="griech" zeichen="griech" umschrift="ABGDEZĒTHIKLMNXOPRSTUPKHŌ abgdezēthiklmnxoprstuphkhō">ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ αβγδεζηθικλμνξοπρστυφχψω</fremdsprache>
+        <zeile nr="03"/><fremdsprache sprache="ital">italian text</fremdsprache>
+        <zeile nr="04"/><fremdsprache sprache="franz">french text</fremdsprache>
+        <zeile nr="05"/><fremdsprache sprache="port">portuguese text</fremdsprache>
+        <zeile nr="06"/><fremdsprache sprache="span">spanish text</fremdsprache>
+        <zeile nr="07"/><fremdsprache sprache="engl">english text</fremdsprache>
+        <zeile nr="08"/><fremdsprache sprache="nl">dutch text</fremdsprache>
+        <zeile nr="09"/><fremdsprache sprache="schwed">swedish text</fremdsprache>
+      </p>
+
+      <p>
+        <fremdsprache sprache="lat">
+          <zeile nr="10"/>some looooooooo<trenn/>oooong word
+          <seite nr="026"/>
+          <zeile nr="01"/><fremdsprache sprache="lat">latin text</fremdsprache>
+          <zeile nr="02"/><fr seite="026" nr="1">*)</fr>
+          <zeile nr="03"/><romzahl>III</romzahl>
+          <zeile nr="04"/><gesperrt>gesperrt</gesperrt>
+          <zeile nr="05"/><name>name</name>
+          <zeile nr="06"/><fett>fett</fett>
+          <zeile nr="07"/><formel>formel</formel>
+          <zeile nr="09"/><em1>em1</em1>
+          <zeile nr="10"/><em2>em2</em2>
+          <zeile nr="11"/><bildverweis src="imgRef2"/>
+          <zeile nr="12"/><bild src="img2"/>
+        </fremdsprache>
+      </p>
+      
+      <p>
+        <antiqua>
+          <zeile nr="12"/>some looooooooo<trenn/>oooong word
+          <seite nr="027"/>
+          <zeile nr="01"/><gesperrt>gesperrt</gesperrt>
+          <zeile nr="02"/><name>name</name>
+          <zeile nr="03"/><fett>fett</fett>
+        </antiqua>
+        <gesperrt>
+          <zeile nr="04"/>some looooooooo<trenn/>oooong word
+          <seite nr="028"/>
+          <zeile nr="02"/><name>name</name>
+          <zeile nr="03"/><fett>fett</fett>
+        </gesperrt>
+        <name>
+          <zeile nr="04"/>some looooooooo<trenn/>oooong word
+          <seite nr="029"/>
+          <zeile nr="01"/><fett>fett</fett>
+        </name>
+        <fett>
+          <seite nr="030"/>
+          <zeile nr="01"/>some looooooooo<trenn/>oooong word
+        </fett>
+        <formel>
+          a+b = <em1>result</em1>
+        </formel>
+      </p>
+
+      <p>
+        <em2>
+          <zeile nr="02" />te<trenn/>xt
+          <seite nr="031"/>
+          <zeile nr="01"/><fr seite="031" nr="1">*)</fr>
+          <zeile nr="02"/><fremdsprache sprache="lat">latin text</fremdsprache>
+          <zeile nr="03"/><romzahl>X</romzahl>
+          <zeile nr="04"/><gesperrt>gesperrt</gesperrt>
+          <zeile nr="05"/><name>name</name>
+          <zeile nr="06"/><fett>fett</fett>
+          <zeile nr="07"/><formel>formel</formel>
+          <zeile nr="09"/><em1>em1</em1>
+          <zeile nr="10"/><em2>em2</em2>
+          <zeile nr="11"/><bildverweis src="imgRef3"/>
+          <zeile nr="12"/><bild src="img3"/>
+        </em2>
+      </p>
+
+      <seite nr="032" satz="querformat"/>
+      <p ausrichtung="zentriert">
+        center-aligned text
+      </p>
+      <p ausrichtung="rechts">
+        right-aligned text
+      </p>
+
+      <seite nr="033"/>
+      <p>
+        <zeile nr="01"/> text line 1
+        <zeile nr="02"/> text line 2
+        <zeile nr="03"/> text line 3
+        <zeile nr="04"/> text line 4
+        <zeile nr="05"/> text line 5
+        <zeile nr="06"/> text line 6
+        <zeile nr="07"/> text line 7
+        <zeile nr="08"/> text line 8
+        <zeile nr="09"/> text line 9
+        <zeile nr="10"/> text line 10
+        <zeile nr="11"/> text line 11
+        <zeile nr="12"/> text line 12
+      </p>
+
+      <p>
+        <zeile nr="13"/> text line 13
+        <zeile nr="14"/> text line 14
+        <zeile nr="15"/> text line 15
+        <zeile nr="16"/> text line 16
+        <zeile nr="17"/> text line 17
+        <zeile nr="18"/> text line 18
+        <zeile nr="19"/> text line 19
+        <zeile nr="20"/> text line 20
+        <zeile nr="21"/> text line 21
+        <zeile nr="22"/> text line 22
+        <zeile nr="23"/> text line 23
+        <zeile nr="24"/> text line 24
+      </p>
+
+      <seite nr="034"/>
+      <p>&#228;&#196;&#235;&#203;&#239;&#207;&#246;&#214;&#252;&#220;</p>
+      <p>äÄëËïÏöÖüÜ</p>
+
+      <p>&#226;&#194;&#234;&#202;&#238;&#206;&#244;&#212;&#251;&#219;</p>
+      <p>âÂêÊîÎôÔûÛ</p>
+
+      <p>&#225;&#193;&#223;&#201;&#237;&#205;&#243;&#211;&#250;&#218;</p>
+      <p>áÁßÉíÍóÓúÚ</p>
+
+      <p>&#224;&#192;&#232;&#200;&#236;&#204;&#242;&#210;&#249;&#217;</p>
+      <p>áÁßÉíÍóÓúÚ</p>
+
+      <p>&#229;&#197;&#231;&#223;</p>
+      <p>åÅçß</p>
+
+      <p>&#945;&#913;&#946;&#914;&#947;&#915;&#948;&#916;&#949;&#917;&#950;&#918;&#951;&#919;&#952;&#920;&#953;&#921;&#954;&#922;&#955;&#923;&#956;&#924;&#957;&#925;&#958;&#926;&#959;&#927;&#960;&#928;&#961;&#929;&#x03C2;&#x03C3;&#931;&#964;&#932;&#965;&#933;&#966;&#934;&#967;&#935;&#968;&#936;&#969;&#937;&#x03D1;</p>
+      <p>αΑβΒγΓδΔεΕζΖηΗθΘιΙκΚλΛμΜνΝξΞοΟπΠρΡςσΣτΤυΥφΦχΧψΨωΩϑ</p>
+
+      <p>&#176;&#189;&#167;&#8730;&#178;&#8224;&#x25CB;&#x25A1;</p>
+      <p>°½§√²†○□</p>
+
+      <seite nr="035"/>
+      <table anm="annotation">
+        <tr>
+          <td colspan="2" rowspan="1">cell 1</td>
+          <td>cell 2</td>
+        </tr>
+        <tr>
+          <td>cell 3</td>
+          <td>cell 4</td>
+          <td>cell 5</td>
+        </tr>
+        <tr>
+          <seite nr="036"/>
+          <op nr="30"/>
+          <p><zeile nr="01"/>paragraph</p>
+          <zeile nr="02"/>some looooooooo<trenn/>oooong word
+          <zeile nr="04"/><fr seite="026" nr="1">*)</fr>
+          <zeile nr="05"/><fremdsprache sprache="lat">latin text</fremdsprache>
+          <zeile nr="06"/><romzahl>III</romzahl>
+          <zeile nr="07"/><gesperrt>gesperrt</gesperrt>
+          <zeile nr="08"/><name>name</name>
+          <zeile nr="09"/><fett>fett</fett>
+          <zeile nr="10"/><formel>formel</formel>
+          <zeile nr="11"/><em1>em1</em1>
+          <zeile nr="12"/><em2>em2</em2>
+          <zeile nr="13"/><bildverweis src="table-imgRef"/>
+          <zeile nr="14"/><bild src="table-img"/>
+        </tr>
+      </table>
+    </hauptteil>
+
+    <randtexte>
+      <randtext seite="033" anfang="13">
+        <p>randtext paragraph</p>
+      </randtext>
+    </randtexte>
+
+    <fussnoten>
+      <fn seite="001" nr="1">
+        <p>footnote text</p>
+        <p>another paragraph</p>
+      </fn>
+
+      <fn seite="002" nr="1">fn text</fn>
+      <fn seite="003" nr="1">fn text</fn>
+      <fn seite="005" nr="1">fn text</fn>
+      <fn seite="007" nr="1">fn text</fn>
+      <fn seite="011" nr="1">fn text</fn>
+      <fn seite="013" nr="1">fn text</fn>
+      <fn seite="015" nr="1">fn text</fn>
+      <fn seite="017" nr="1">fn text</fn>
+      <fn seite="021" nr="1">fn text</fn>
+    </fussnoten>
+  </band>
+
+  <tafeln>
+    <tafel nr="1">
+      <bild src="src"
+        beschreibung="beschreibung"
+        typ="grafik"
+        Ort="Ort"
+        z_anfang="02"
+        z_ende="08"
+        ausrichtung="zentriert">
+      </bild>
+
+      <bild src="src2" />
+    </tafel>
+  </tafeln>
+</kant_abt1>

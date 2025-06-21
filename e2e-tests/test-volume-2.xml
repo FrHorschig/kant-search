@@ -1,0 +1,119 @@
+<!-- This dummy volume contains an AI generated essay. It is used to test the search in e2e tests. -->
+<?xml version="1.0" encoding="UTF-8"?>
+
+<kant_abt1>
+  <band nr="02">
+    <titel>Immanuel Kant: Leben und Werk</titel>
+
+    <hauptteil>
+      <hj>2025</hj>
+
+      <seite nr="1"/>
+      <h1><zeile nr="1"/>Immanuel Kant</h1>
+
+      <p>
+        <zeile nr="2"/>
+        <name>Immanuel Kant</name> wurde 1724 in Königsberg geboren und gilt als einer der 
+        bedeutendsten Philosophen der Aufklärung. Sein Denken prägte die moderne Philosophie nachhaltig und beeinflusste zahlreiche Fachgebiete.
+      </p>
+
+      <seite nr="2"/>
+      <h2><zeile nr="1"/>Frühes Leben und Ausbildung</h2>
+
+      <p>
+        <zeile nr="2"/>
+        Kant verbrachte sein ganzes Leben in Königsberg. Er studierte an der Universität seiner Heimatstadt und widmete sich vor allem der Naturwissenschaft und Philosophie. 
+        Schon früh zeigte sich sein Interesse an den Naturgesetzen und der Aufklärung.
+      </p>
+
+      <p>
+        <zeile nr="3"/>
+        Sein Studium war stark von den Werken <name>Leibniz</name> und <name>Newton</name> beeinflusst, was ihn zu einem wissenschaftlichen Denken anregte. 
+        Dennoch suchte Kant nach einem tieferen Verständnis der menschlichen Erkenntnis.
+      </p>
+
+      <seite nr="3"/>
+      <h2><zeile nr="1"/>Philosophische Hauptwerke</h2>
+
+      <p>
+        <zeile nr="2"/>
+        Sein bekanntestes Werk, die <fett>Kritik der reinen Vernunft</fett>, erschien 1781
+        <fr seite="003" nr="1">*)</fr>
+        und revolutionierte das Verständnis von Erkenntnis und Metaphysik. Kant entwickelte darin die Theorie, dass unsere Erkenntnis durch die Struktur unseres Verstandes geformt wird.
+      </p>
+
+      <p>
+        <zeile nr="3"/>
+        Er unterschied zwischen <em1>Erfahrung</em1> und <em1>reiner Vernunft</em1>, wodurch er die Grenzen der menschlichen Erkenntnis aufzeigte und zugleich die Grundlagen für eine neue Philosophie legte.
+      </p>
+
+      <p>
+        <zeile nr="4"/>
+        Neben der Erkenntnistheorie beschäftigte er sich auch mit Ethik, etwa in der <fett>Kritik der praktischen Vernunft</fett>, in der er den kategorischen Imperativ formulierte, der besagt, dass moralisches Handeln universell gültig sein muss.
+      </p>
+
+      <p>
+        <zeile nr="5"/>
+        In der <fett>Kritik der Urteilskraft</fett> behandelte Kant Ästhetik und Teleologie, wodurch er auch Einflüsse auf die Kunst- und Naturphilosophie ausübte.
+      </p>
+
+      <seite nr="4"/>
+      <h2><zeile nr="1"/>Spätes Leben und Wirkung</h2>
+
+      <p>
+        <zeile nr="2"/>
+        Kant starb 1804 im Alter von 79 Jahren. Seine Philosophie beeinflusst bis heute zahlreiche Bereiche der Geistes- und Sozialwissenschaften.
+      </p>
+
+      <p>
+        <zeile nr="3"/>
+        Seine Lehren wurden Grundlage für viele nachfolgende Denkrichtungen, etwa den deutschen Idealismus mit <name>Fichte</name> und <name>Schelling</name> sowie die moderne Ethik und Erkenntnistheorie.
+      </p>
+
+      <p>
+        <zeile nr="4"/>
+        Die Stadt Königsberg ehrte ihn posthum mit zahlreichen Denkmälern und die Universität trägt seinen Namen.
+      </p>
+
+      <seite nr="5"/>
+      <h2><zeile nr="1"/>Wissenschaftlicher Kontext und Zeitgeist</h2>
+
+      <p>
+        <zeile nr="2"/>
+        Im 18. Jahrhundert herrschte ein großes Interesse an den Naturwissenschaften und der menschlichen Vernunft.
+        <fr seite="005" nr="1">*)</fr>
+        Kant lebte in einer Zeit, in der der Rationalismus und Empirismus konkurrierten.
+        <fr seite="005" nr="2">**)</fr>
+      </p>
+
+      <p>
+        <zeile nr="3"/>
+        Mit seinem <fett>kritischen Idealismus</fett> verband Kant beide Strömungen, indem er zeigte, dass Erkenntnis zwar auf Erfahrung basiert, aber durch angeborene Kategorien des Verstandes strukturiert wird.
+      </p>
+
+      <p>
+        <zeile nr="4"/>
+        Dies veränderte das philosophische Denken tiefgreifend und schuf eine neue Grundlage für die Philosophie der Moderne.
+      </p>
+
+      <p>
+        <zeile nr="5"/>
+        Kants Werk ist somit ein Brückenschlag zwischen Aufklärung und Romantik, zwischen Wissenschaft und Metaphysik.
+      </p>
+    </hauptteil>
+
+    <fussnoten>
+      <fn seite="3" nr="1">
+        <p><zeile nr="6"/>Die <fett>Kritik der reinen Vernunft</fett> gilt als eines der wichtigsten Werke der Philosophiegeschichte.</p>
+      </fn>
+
+      <fn seite="5" nr="1">
+        <p><zeile nr="7"/>Der kategorische Imperativ ist ein zentraler Begriff der Moralphilosophie.</p>
+      </fn>
+
+      <fn seite="5" nr="2">
+        <p><zeile nr="9"/>Der kategorische Imperativ ist ein zentraler Begriff der Moralphilosophie.</p>
+      </fn>
+    </fussnoten>
+  </band>
+</kant_abt1>

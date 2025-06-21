@@ -3,3 +3,4 @@ volumes*
 go.work.sum
 kant-search-utils
 .env
+*scratch*

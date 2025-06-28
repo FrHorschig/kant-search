@@ -1,6 +1,14 @@
 #!/bin/bash
 
-SONAR_PORT=8000 # use port 8000 because port 9000 is use by ES
+SONAR_PORT=8000
+SONAR_VERSION=9.9.8-community
+SCANNER_VERSION=latest
+
+if [ -f .env ]; then
+    set -o allexport
+    source .env
+    set +o allexport
+fi
 
 # === option -s: start the SonarQube container =================================
 start_sonar_container() {
@@ -12,13 +20,19 @@ start_sonar_container() {
             docker start "$CONTAINER_NAME"
         fi
     else
+        docker pull sonarqube:$SCANNER_VERSION
         docker run -d --name "$CONTAINER_NAME" \
           -e SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true \
           -v sonarqube_data:/opt/sonarqube/ \
-          -p $SONAR_PORT:9000 sonarqube:latest
+          -p $SONAR_PORT:9000 \
+          sonarqube:$SONAR_VERSION
     fi
 
     wait_for_sonar
+    if [ ! -f ".sonar_password_changed" ]; then
+        change_admin_password
+        touch .sonar_password_changed
+    fi
     recreate_env
 
     SONAR_TOKEN_BACKEND=$(create_project "kant-search-backend" "Kant Search Backend" "backend-token")
@@ -29,11 +43,20 @@ start_sonar_container() {
 }
 
 wait_for_sonar() {
-  local admin_auth="admin:admin"
-    until curl -s -u "$admin_auth" "http://localhost:$SONAR_PORT/api/system/health" | grep -q '"health":"GREEN"'; do
-    sleep 5
-    echo "waiting..."
-  done
+    local admin_auth="${SONAR_ADMIN_USER}:${SONAR_ADMIN_NEW_PASSWORD}"
+        until curl -s -u "$admin_auth" "http://localhost:$SONAR_PORT/api/system/health" | grep -q '"health":"GREEN"'; do
+        sleep 5
+        echo "waiting..."
+    done
+}
+
+change_admin_password() {
+    echo "Changing default admin password..."
+    curl -s -u "$SONAR_ADMIN_USER:$SONAR_ADMIN_OLD_PASSWORD" -X POST \
+      "http://localhost:$SONAR_PORT/api/users/change_password" \
+      -d "login=$SONAR_ADMIN_USER" \
+      -d "previousPassword=$SONAR_ADMIN_OLD_PASSWORD" \
+      -d "password=$SONAR_ADMIN_NEW_PASSWORD"
 }
 
 recreate_env() {
@@ -90,6 +113,7 @@ analyze_backend() {
     go test ./... -tags=integration,unit -coverprofile coverage.out
     mkdir -p .sonar/cache .scannerwork && chmod -R 777 .sonar .scannerwork
     cd ../..
+    docker pull sonarsource/sonar-scanner-cli:$SCANNER_VERSION
     docker run --rm \
         --network=host \
         -e SONAR_HOST_URL="http://localhost:$SONAR_PORT" \
@@ -97,24 +121,28 @@ analyze_backend() {
         -e SONAR_SCANNER_OPTS="-Dsonar.projectKey=kant-search-backend" \
         -e SONAR_TOKEN="${SONAR_TOKEN_BACKEND}" \
         -v "${KANT_SEARCH_ROOT}/kant-search-backend/src:/usr/src" \
-        sonarsource/sonar-scanner-cli
+        sonarsource/sonar-scanner-cli:$SCANNER_VERSION
 }
 
 # === option -t: analyze the frontend ==========================================
 analyze_frontend() {
     source .env
     cd kant-search-frontend/
-    ng test --watch=false --code-coverage
+    ng test --watch=false --code-coverage --browsers=ChromeHeadless
     mkdir -p .sonar/cache .scannerwork && chmod -R 777 .sonar .scannerwork
     cd ..
+    docker pull sonarsource/sonar-scanner-cli:$SCANNER_VERSION
     docker run --rm \
         --network=host \
         -e SONAR_HOST_URL="http://localhost:$SONAR_PORT" \
         -e SONAR_USER_HOME=".sonar" \
-        -e SONAR_SCANNER_OPTS="-Dsonar.projectKey=kant-search-frontend -Dsonar.scm.disabled=True" \
+        -e SONAR_SCANNER_OPTS=" \
+            -Dsonar.projectKey=kant-search-frontend \
+            -Dsonar.scm.disabled=true \
+            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info" \
         -e SONAR_TOKEN="${SONAR_TOKEN_FRONTEND}" \
         -v "${KANT_SEARCH_ROOT}/kant-search-frontend:/usr/src" \
-        sonarsource/sonar-scanner-cli
+        sonarsource/sonar-scanner-cli:$SCANNER_VERSION
 }
 
 greeting=0

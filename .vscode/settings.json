@@ -1,5 +1,6 @@
 {
   "cSpell.words": [
+    "anfang",
     "apiread",
     "apisearch",
     "apiupload",
@@ -8,6 +9,8 @@
     "coresearch",
     "coreupload",
     "dataaccess",
+    "dbmapping",
+    "dbmetadataextraction",
     "dbmodel",
     "deletebyquery",
     "emph",
@@ -21,11 +24,14 @@
     "kant",
     "KSDB",
     "KSGO",
+    "metadataextraction",
+    "metadatamapping",
     "mockgen",
     "openapi",
     "operationtype",
     "plainto",
     "pyutil",
+    "referencemapping",
     "romzahl",
     "seite",
     "siglum",
@@ -33,12 +39,16 @@
     "spacy",
     "stretchr",
     "summs",
+    "testutil",
+    "textmapping",
     "trafo",
+    "treemapping",
     "treemodel",
     "trenn",
     "tsquery",
     "typedapi",
     "Vorkritische",
+    "xmlmapping",
     "zeile"
   ]
 }

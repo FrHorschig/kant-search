@@ -4,35 +4,29 @@ SONAR_PORT=8000
 SONAR_VERSION=9.9.8-community
 SCANNER_VERSION=latest
 
-if [ -f .env ]; then
-    set -o allexport
-    source .env
-    set +o allexport
-fi
+SONAR_ADMIN_USER="admin"
+SONAR_ADMIN_OLD_PASSWORD="admin"
+SONAR_ADMIN_NEW_PASSWORD="adminnew"
 
 # === option -s: start the SonarQube container =================================
 start_sonar_container() {
-    docker volume create sonarqube_data
+    VOLUME_NAME="sonarqube_data"
+    docker volume create $VOLUME_NAME
     
     CONTAINER_NAME="sonarqube"
-    if docker ps -a --format '{{.Names}}' | grep -Eq "^${CONTAINER_NAME}\$"; then
-        if [ "$(docker inspect -f '{{.State.Running}}' $CONTAINER_NAME)" != "true" ]; then
-            docker start "$CONTAINER_NAME"
-        fi
-    else
-        docker pull sonarqube:$SCANNER_VERSION
-        docker run -d --name "$CONTAINER_NAME" \
-          -e SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true \
-          -v sonarqube_data:/opt/sonarqube/ \
-          -p $SONAR_PORT:9000 \
-          sonarqube:$SONAR_VERSION
-    fi
+    docker stop $CONTAINER_NAME
+    docker rm $CONTAINER_NAME
+    docker volume rm $VOLUME_NAME
+
+    docker pull sonarqube:$SCANNER_VERSION
+    docker run -d --name "$CONTAINER_NAME" \
+      -e SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true \
+      -v sonarqube_data:/opt/sonarqube/ \
+      -p $SONAR_PORT:9000 \
+      sonarqube:$SONAR_VERSION
 
     wait_for_sonar
-    if [ ! -f ".sonar_password_changed" ]; then
-        change_admin_password
-        touch .sonar_password_changed
-    fi
+    change_admin_password
     recreate_env
 
     SONAR_TOKEN_BACKEND=$(create_project "kant-search-backend" "Kant Search Backend" "backend-token")
@@ -43,8 +37,8 @@ start_sonar_container() {
 }
 
 wait_for_sonar() {
-    local admin_auth="${SONAR_ADMIN_USER}:${SONAR_ADMIN_NEW_PASSWORD}"
-        until curl -s -u "$admin_auth" "http://localhost:$SONAR_PORT/api/system/health" | grep -q '"health":"GREEN"'; do
+    local admin_auth="${SONAR_ADMIN_USER}:${SONAR_ADMIN_OLD_PASSWORD}"
+    until curl -s -u "$admin_auth" "http://localhost:$SONAR_PORT/api/system/health" | grep -q '"health":"GREEN"'; do
         sleep 5
         echo "waiting..."
     done
@@ -81,7 +75,7 @@ create_project() {
     local project_key=$1
     local project_name=$2
     local token_name=$3
-    local admin_auth="admin:admin"
+    local admin_auth="${SONAR_ADMIN_USER}:${SONAR_ADMIN_NEW_PASSWORD}"
 
     if ! curl -s -u "$admin_auth" "http://localhost:$SONAR_PORT/api/projects/search?projects=$project_key" | grep -q "\"key\":\"$project_key\""; then
         curl -s -u "$admin_auth" -X POST \

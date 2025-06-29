@@ -43,7 +43,7 @@
       <seite nr="004"/>
       <h2>
         <hi><zeile nr="01"/> only in table of contents</hi>
-        <zeile nr="02"/> Head<trenn/>ing 2
+        <zeile nr="02"/> Head<trenn/>ing 2a
         <zeile nr="03"/><fremdsprache sprache="lat">latin text</fremdsprache>
         <zeile nr="04"/><romzahl>VII</romzahl>
         <zeile nr="05"/><gesperrt>text</gesperrt>
@@ -53,6 +53,33 @@
         <op nr="4"/>
         <seite nr="005"/>
         <hu><zeile nr="01"/> only in text</hu>
+      </h2>
+
+      <p><zeile nr="02"/>paragraph 2a1</p>
+      <p><zeile nr="03"/>paragraph 2a2</p>
+      <p><zeile nr="04"/>paragraph 2a3</p>
+
+      <h2>
+        <zeile nr="05"/> Head<trenn/>ing 2b
+        <zeile nr="06"/> heading 2b text
+      </h2>
+
+      <p><zeile nr="07"/>paragraph 2b1</p>
+      <p><zeile nr="08"/>paragraph 2b2</p>
+      <p><zeile nr="09"/>paragraph 2b3</p>
+
+      <h3>
+        <zeile nr="10"/> Head<trenn/>ing 3a
+        <zeile nr="11"/> heading 3a text
+      </h3>
+
+      <p><zeile nr="12"/>paragraph 3a1</p>
+      <p><zeile nr="13"/>paragraph 3a2</p>
+      <p><zeile nr="14"/>paragraph 3a3</p>
+
+      <h2>
+        <zeile nr="15"/> Head<trenn/>ing 2c
+        <zeile nr="16"/> heading 2c text
       </h2>
 
       <seite nr="006"/>
@@ -125,6 +152,7 @@
         <zeile nr="06"/><name>name</name>
         <zeile nr="07"/><fett>text</fett>
         <zeile nr="08"/><fr seite="015" nr="1">*)</fr>
+        <zeile nr="09"/>SPECIAL_TERM headingterm
         <op nr="9"/>
         <seite nr="016"/>
         <hu><zeile nr="01"/> only in text</hu>
@@ -285,7 +313,7 @@
 
       <seite nr="033"/>
       <p>
-        <zeile nr="01"/> text line 1
+        <zeile nr="01"/> SPECIAL_TERM paragraphterm
         <zeile nr="02"/> text line 2
         <zeile nr="03"/> text line 3
         <zeile nr="04"/> text line 4
@@ -365,11 +393,28 @@
           <zeile nr="14"/><bild src="table-img"/>
         </tr>
       </table>
+
+      <seite nr="037"/>
+      <h1><zeile nr="01"/>Work 2</h1>
+      <p>
+        <zeile nr="02"/>work 2 paragraph <fr seite="037" nr="1">*)</fr> text
+      </p>
+
+      <seite nr="039"/>
+      <h1><zeile nr="01"/>Work 3</h1>
+      <p><zeile nr="02"/>work 3 paragraph text</p>
+      <h2><zeile nr="03"/>SPECIAL_TERM headingterm</h2>
+      <p><zeile nr="04"/>SPECIAL_TERM paragraphterm</p>
     </hauptteil>
 
     <randtexte>
       <randtext seite="033" anfang="13">
         <p>randtext paragraph</p>
+        <p>SPECIAL_TERM summaryterm</p>
+      </randtext>
+
+      <randtext seite="039" anfang="02">
+        <p>summary text</p>
       </randtext>
     </randtexte>
 
@@ -377,17 +422,26 @@
       <fn seite="001" nr="1">
         <p>footnote text</p>
         <p>another paragraph</p>
+        <p>SPECIAL_TERM footnoteterm</p>
       </fn>
 
       <fn seite="002" nr="1">fn text</fn>
       <fn seite="003" nr="1">fn text</fn>
       <fn seite="005" nr="1">fn text</fn>
-      <fn seite="007" nr="1">fn text</fn>
+      <fn seite="008" nr="1">fn text</fn>
       <fn seite="011" nr="1">fn text</fn>
       <fn seite="013" nr="1">fn text</fn>
       <fn seite="015" nr="1">fn text</fn>
       <fn seite="017" nr="1">fn text</fn>
       <fn seite="021" nr="1">fn text</fn>
+      <fn seite="023" nr="1">fn text</fn>
+      <fn seite="026" nr="1">fn text</fn>
+      <fn seite="031" nr="1">fn text</fn>
+
+      <fn seite="037" nr="1">
+        <p>footnote text</p>
+        <p><seite nr="38"/>another paragraph</p>
+      </fn>
     </fussnoten>
   </band>
 

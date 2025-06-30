@@ -13,7 +13,16 @@ If you want to improve this code or the code of one of the submodules, please re
 
 ## Installation
 
-Please refer to the README files of the submodules for information about the installation process.
+Both the backend and the frontend are available as Docker containers at [ghcr.io](ghcr.io/frhorschig/kant-search-frontend). You can deploy the kant-search applications by using the `deployment/docker-compose.yml` file by following these steps:
+- copy the files in the `deployment` directory to your server
+- get a certificate and its key for your domain, put them in `/etc/nginx/ssl/` and name them `hostdomain.crt` and `hostdomain.key` (or rename these strings according to your file names and locations)
+- generate the certificates for the internal communication, either automatically by running the `generate-certs.sh` script or manually
+- copy the backend configuration files (see README of the backend project for details) in the `config/backend` directory
+- copy the frontend configuration files (see README of the frontend project for details) in the `config/frontend` directory and update the `apiUrl` entry according to your domain name
+- add values for the variables in the `env.sh` file
+- start the applications with `docker-compose up`
+
+If you want to deploy the applications without Docker, please refer to the [Elasticsearch](https://www.elastic.co/docs/solutions/search) documentation and the configuration documentation in the backend and frontend README files.
 
 ## Development setup
 

@@ -1,0 +1,80 @@
+version: "3.8"
+
+services:
+  reverse-proxy:
+    image: nginx:stable-alpine
+    ports:
+      - "443:443"
+    volumes:
+      - ./etc/nginx/ssl/hostdomain.crt:/etc/nginx/ssl/hostdomain.crt:ro
+      - ./etc/nginx/ssl/hostdomain.key:/etc/nginx/ssl/hostdomain.key:ro
+      - ./auth/internal-ca.crt:/etc/nginx/ssl/internal-ca.crt:ro
+      - ./auth/.htpasswd:/etc/nginx/.htpasswd:ro
+      - ./auth/.htpasswd-upload:/etc/nginx/.htpasswd-upload:ro
+      - ./config/reverse-proxy.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - frontend
+      - backend
+    networks:
+      - kant-search-network
+
+  frontend:
+    image: ghcr.io/frhorschig/kant-search-frontend:0.8.0
+    volumes:
+      - ./auth/frontend.crt:/etc/nginx/ssl/frontend.crt:ro
+      - ./auth/frontend.key:/etc/nginx/ssl/frontend.key:ro
+      - ./config/frontend/config.json:/usr/share/nginx/html/assets/config.json:ro
+    depends_on:
+      - backend
+    networks:
+      - kant-search-network
+
+  backend:
+    image: ghcr.io/frhorschig/kant-search-backend:0.8.0
+    volumes:
+      - ./config/backend/:/config/:ro
+      - ./auth/backend.crt:/app/certs/backend.crt:ro
+      - ./auth/backend.key:/app/certs/backend.key:ro
+      - ./auth/elasticsearch.crt:/app/certs/elasticsearch.crt:ro
+    env_file:
+      - env.sh
+    environment:
+      - KSGO_URL=https://elasticsearch
+      - KSDB_PORT=9200
+      - KSDB_USERNAME=elastic
+      - KSDB_CERT=/app/certs/elasticsearch.crt
+      - KSGO_CONFIG_PATH=/config
+      - KSGO_DISABLE_SSL=false
+      - KSGO_CERT=/app/certs/backend.crt
+      - KSGO_KEY=/app/certs/backend.key
+    depends_on:
+      - elasticsearch
+    networks:
+      - kant-search-network
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.18.1
+    volumes:
+      - ./elastic-data:/usr/share/elasticsearch/data
+      - ./auth/:/usr/share/elasticsearch/config/certs
+    env_file:
+      - env.sh
+    environment:
+      - discovery.type=single-node
+      - ELASTIC_PASSWORD=${KSDB_PASSWORD}
+      - xpack.security.enabled=true
+      - xpack.security.http.ssl.enabled=true
+      - xpack.security.http.ssl.key=auth/elasticsearch.key
+      - xpack.security.http.ssl.certificate=auth/elasticsearch.crt
+      - xpack.security.http.ssl.certificate_authorities=auth/ca/ca.crt
+      - xpack.security.transport.ssl.enabled=true
+      - xpack.security.transport.ssl.key=auth/elasticsearch.key
+      - xpack.security.transport.ssl.certificate=auth/elasticsearch.crt
+      - xpack.security.transport.ssl.certificate_authorities=auth/ca/ca.crt
+      - xpack.security.transport.ssl.verification_mode=certificate
+    networks:
+      - kant-search-network
+
+networks:
+  kant-search-network:
+    driver: bridge

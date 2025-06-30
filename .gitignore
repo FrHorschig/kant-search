@@ -5,3 +5,4 @@ kant-search-utils
 .env
 .sonar
 *scratch*
+*.crt

@@ -7,7 +7,10 @@ export KSDB_PORT=9200
 export KSDB_USERNAME="elastic"
 export KSDB_PASSWORD="es_password"
 export KSGO_ALLOW_ORIGINS=*
+export KSGO_RETRY_COUNT=30
+export KSGO_RETRY_INTERVAL=5
 export KSGO_DISABLE_SSL=true
+export KSGO_PORT=3000
 
 USE_DEBUGGER=false
 if [[ "$1" == "-d" ]]; then
@@ -41,27 +44,26 @@ docker run --rm --name $ES_CONTAINER \
     -e ELASTIC_PASSWORD=$KSDB_PASSWORD \
     -p $KSDB_PORT:9200 \
     docker.elastic.co/elasticsearch/elasticsearch:$ES_VERSION | \
-    grep -v '"log.level": "INFO"' | \
     prefix "ES" "34" &
 
 until docker cp $ES_CONTAINER:/usr/share/elasticsearch/config/certs/http_ca.crt $ES_CERT 2>/dev/null; do
     echo "Waiting for ES container to start..."
     sleep 2
 done
-until curl -s --cacert $ES_CERT -u "elastic:$KSDB_PASSWORD" "https://localhost:$KSDB_PORT/" >/dev/null 2>&1; do
-    echo "Waiting for ES container to start..."
-    sleep 2
-done
+# until curl -s --cacert $ES_CERT -u "elastic:$KSDB_PASSWORD" "https://localhost:$KSDB_PORT/" >/dev/null 2>&1; do
+#     echo "Waiting for ES container to start..."
+#     sleep 2
+# done
 
 # === backend ====================================================
 start_live_reloading() {
     export KSDB_CERT="../$ES_CERT"
-    export CONFIG_PATH="config"
+    export KSGO_CONFIG_PATH="config"
     cd kant-search-backend && ~/go/bin/modd | prefix "Go" "32" &
 }
 start_debugging() {
     export KSDB_CERT="../../$ES_CERT"
-    export CONFIG_PATH="../config"
+    export KSGO_CONFIG_PATH="../config"
     cd kant-search-backend/src && dlv debug --headless --listen=:2345 --api-version=2 --accept-multiclient --log 2>&1 | prefix "Go" "32" &
 }
 if $USE_DEBUGGER; then

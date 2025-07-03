@@ -15,11 +15,10 @@ If you want to improve this code or the code of one of the submodules, please re
 
 Both the backend and the frontend are available as Docker containers at [ghcr.io](ghcr.io/frhorschig/kant-search-frontend). You can deploy the kant-search applications by using the `deployment/docker-compose.yml` file by following these steps:
 - copy the files in the `deployment` directory to your server
-- get a certificate and its key for your domain, put them in `/etc/nginx/ssl/` and name them `hostdomain.crt` and `hostdomain.key` (or rename these strings according to your file names and locations)
-- generate the certificates for the internal communication, either automatically by running the `generate-certs.sh` script or manually
-- copy the backend configuration files (see README of the backend project for details) in the `config/backend` directory
-- copy the frontend configuration files (see README of the frontend project for details) in the `config/frontend` directory and update the `apiUrl` entry according to your domain name
-- add values for the variables in the `env.sh` file
+- get a certificate for your domain and adjust the docker-compose volume mapping `./etc/letsencrypt/live/<hostname>:/etc/nginx/ssl/:ro` to match your certificate location (if you don't use letsencrypt, also update the certificate path in `config/reverse-proxy.conf`)
+- generate internal certificates and passwords by running the `generate-auth-files.sh` script (the input is the username for the upload endpoint user, the output is the generated password)
+- download the configuration files by running the `download-config.sh` script (the input is the kant-search version you want to deploy)
+- add your hostname for the `KSGO_ALLOW_ORIGINS` variable in the `env.sh` file and update the API URL in the frontend `config.json` (use hostname instead of `localhost` and remove the port number)
 - start the applications with `docker-compose up`
 
 If you want to deploy the applications without Docker, please refer to the [Elasticsearch](https://www.elastic.co/docs/solutions/search) documentation and the configuration documentation in the backend and frontend README files.

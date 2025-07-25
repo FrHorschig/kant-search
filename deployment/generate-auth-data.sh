@@ -2,12 +2,8 @@
 
 set -e
 mkdir -p auth
-if [ "$#" -ne 1 ]; then
-    echo "Usage: $0 <username for the upload endpoint>"
-    exit 1
-fi
 
-  cd auth/
+cd auth/
 # === generate CA certificate ==================================================
 CA_KEY=internal-ca.key
 CA_CERT=internal-ca.crt
@@ -42,6 +38,7 @@ subjectAltName = @alt_names
 
 [ alt_names ]
 DNS.1 = $name
+DNS.2 = localhost
 EOF
 
   openssl genrsa -out ${name}.key 2048
@@ -54,13 +51,6 @@ for svc in "${SERVICES[@]}"; do
   generate_cert $svc
 done
 
-# === generate htpasswd file for upload user ===================================
-USERNAME="$1"
-UPLOAD_PASSWORD=$(tr -dc 'A-Za-z0-9' < /dev/urandom | head -c 64)
-htpasswd -cbB htpasswd-upload "$USERNAME" "$UPLOAD_PASSWORD"
-cd ..
-echo "Password for the upload endpoint: $UPLOAD_PASSWORD"
-
 # === generate password for Elasticsearch database =============================
 KSDB_PASSWORD=$(tr -dc 'A-Za-z0-9' < /dev/urandom | head -c 64)
 ESCAPED_PASSWORD=$(printf '%s\n' "$KSDB_PASSWORD" | sed 's/[&/\]/\\&/g')
@@ -69,3 +59,4 @@ if grep -q '^KSDB_PASSWORD=' .env; then
 else
     echo "KSDB_PASSWORD=$ESCAPED_PASSWORD" >> .env
 fi
+echo "$KSDB_PASSWORD" | docker secret create ksdb_password -

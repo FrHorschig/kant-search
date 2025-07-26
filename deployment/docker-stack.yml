@@ -1,6 +1,7 @@
+version: "3.8"
+
 services:
   reverse-proxy:
-    container_name: reverse-proxy
     image: nginx:1.29.0
     ports:
       - "443:443"
@@ -13,18 +14,14 @@ services:
     healthcheck:
       test:
         ["CMD-SHELL", "curl -s --insecure https://localhost/ | grep -q '<html'"]
-      interval: 5s
-      timeout: 3s
-      retries: 100
+      interval: 10s
+      timeout: 5s
+      retries: 50
       start_period: 30s
-    depends_on:
-      - frontend
-      - backend
     networks:
       - kant-search-network
 
   frontend:
-    container_name: frontend
     image: ghcr.io/frhorschig/kant-search-frontend:0.8.0
     volumes:
       - ./auth/frontend.crt:/etc/nginx/ssl/frontend.crt:ro
@@ -36,26 +33,25 @@ services:
           "CMD-SHELL",
           "curl -s --insecure https://localhost/index.html | grep -q '<title'",
         ]
-      interval: 5s
-      timeout: 3s
-      retries: 100
+      interval: 10s
+      timeout: 5s
+      retries: 50
       start_period: 30s
-    depends_on:
-      - backend
     networks:
       - kant-search-network
 
   backend:
-    container_name: backend
     image: ghcr.io/frhorschig/kant-search-backend:0.8.0
     volumes:
       - ./config/backend:/app/config:ro
       - ./auth:/app/certs:ro
+    secrets:
+      - ksdb_password
     environment:
       - KSDB_URL=https://elasticsearch
       - KSDB_PORT=9200
       - KSDB_USERNAME=elastic
-      - KSDB_PASSWORD=${KSDB_PASSWORD}
+      - KSDB_PASSWORD=/run/secrets/ksdb_password
       - KSDB_CERT=/app/certs/internal-ca.crt
       - KSGO_RETRY_COUNT=100
       - KSGO_RETRY_INTERVAL=5
@@ -69,24 +65,23 @@ services:
           "CMD-SHELL",
           "curl -s --cert /app/certs/backend.crt --key /app/certs/backend.key --cacert /app/certs/internal-ca.crt https://localhost:443/health | grep -q 'UP'",
         ]
-      interval: 5s
-      timeout: 3s
-      retries: 100
+      interval: 10s
+      timeout: 5s
+      retries: 50
       start_period: 30s
-    depends_on:
-      - elasticsearch
     networks:
       - kant-search-network
 
   elasticsearch:
-    container_name: elasticsearch
     image: docker.elastic.co/elasticsearch/elasticsearch:8.18.4
     volumes:
       - ./elastic-data:/usr/share/elasticsearch/data
       - ./auth:/usr/share/elasticsearch/config/certs:ro
+    secrets:
+      - ksdb_password
     environment:
       - discovery.type=single-node
-      - ELASTIC_PASSWORD=${KSDB_PASSWORD}
+      - ELASTIC_PASSWORD=/run/secrets/ksdb_password
       - xpack.security.enabled=true
       - xpack.security.http.ssl.enabled=true
       - xpack.security.http.ssl.key=certs/elasticsearch.key
@@ -103,13 +98,17 @@ services:
           "CMD-SHELL",
           "curl -s --cacert config/certs/internal-ca.crt https://localhost:9200 | grep -q 'missing authentication credentials'",
         ]
-      interval: 5s
-      timeout: 3s
-      retries: 100
+      interval: 10s
+      timeout: 5s
+      retries: 50
       start_period: 30s
     networks:
       - kant-search-network
 
+secrets:
+  ksdb_password:
+    external: true
+
 networks:
   kant-search-network:
-    driver: bridge
+    driver: overlay

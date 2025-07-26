@@ -53,10 +53,4 @@ done
 
 # === generate password for Elasticsearch database =============================
 KSDB_PASSWORD=$(tr -dc 'A-Za-z0-9' < /dev/urandom | head -c 64)
-ESCAPED_PASSWORD=$(printf '%s\n' "$KSDB_PASSWORD" | sed 's/[&/\]/\\&/g')
-if grep -q '^KSDB_PASSWORD=' .env; then
-    sed -i "s/^KSDB_PASSWORD=.*/KSDB_PASSWORD=$ESCAPED_PASSWORD/" .env
-else
-    echo "KSDB_PASSWORD=$ESCAPED_PASSWORD" >> .env
-fi
 echo "$KSDB_PASSWORD" | docker secret create ksdb_password -

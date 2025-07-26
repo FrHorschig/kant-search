@@ -4,7 +4,10 @@ services:
   reverse-proxy:
     image: nginx:1.29.0
     ports:
-      - "443:443"
+      - target: 443
+        published: 443
+        protocol: tcp
+        mode: host
     volumes:
       - /etc/letsencrypt/live/<hostname>/fullchain.pem:/etc/nginx/ssl/fullchain.pem:ro
       - /etc/letsencrypt/live/<hostname>/privkey.pem:/etc/nginx/ssl/privkey.pem:ro

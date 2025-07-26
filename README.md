@@ -13,13 +13,14 @@ If you want to improve this code or the code of one of the submodules, please re
 
 ## Installation
 
-Both the backend and the frontend are available as Docker containers at [ghcr.io](ghcr.io/frhorschig/kant-search-frontend). You can deploy the kant-search applications by using the `deployment/docker-compose.yml` file by following these steps:
-- copy the files in the `deployment` directory to your server
-- get a certificate for your domain and adjust the docker-compose volume mapping `./etc/letsencrypt/live/<hostname>:/etc/nginx/ssl/:ro` to match your certificate location (if you don't use letsencrypt, also update the certificate path in `config/reverse-proxy.conf`)
-- generate internal certificates and passwords by running the `generate-auth-files.sh` script (the input is the username for the upload endpoint user, the output is the generated password)
+Both the backend and the frontend are available as Docker containers at [ghcr.io](ghcr.io/frhorschig/kant-search-frontend). You can deploy the kant-search applications by using the `deployment/docker-stack.yml` file by following these steps:
+- copy the files from the `deployment` directory to your server
+- get a certificate for your domain and adjust the docker volume mappings of the reverse proxy for the Let's Encrypt files to match your certificate location (if you don't use Let's Encrypt, also update the certificate path in `config/reverse-proxy.conf`)
 - download the configuration files by running the `download-config.sh` script (the input is the kant-search version you want to deploy)
+- generate internal certificates and the elasticsearch password by running the `generate-auth-files.sh` script
+- generate a user-password pair by running the script `add-upload-user.sh` (the input is the username for the upload endpoint user, the output is the generated password)
 - add your hostname for the `KSGO_ALLOW_ORIGINS` variable in the `env.sh` file and update the API URL in the frontend `config.json` (use hostname instead of `localhost` and remove the port number)
-- start the applications with `docker-compose up`
+- start the application with [Docker Swarm](https://docs.docker.com/engine/swarm/)
 
 If you want to deploy the applications without Docker, please refer to the [Elasticsearch](https://www.elastic.co/docs/solutions/search) documentation and the configuration documentation in the backend and frontend README files.
 
@@ -37,10 +38,10 @@ You need the following software to contribute to the development of the code:
 - [Go](https://go.dev/learn/) (Version 1.24 or greater) for compiling the Go code
 - [modd](https://github.com/cortesi/modd) for starting the Go backend with live-reloading (has to be installed in ~/go/bin)
 - [delve](https://github.com/go-delve/delve) for starting the Go backend in debugging mode (has to be installed in ~/go/bin)
-- [npm](https://docs.npmjs.com/getting-started/configuring-your-local-environment) for installing and compiling the Angular application and its dependencies
+- [npm](https://docs.npmjs.com/getting-started/configuring-your-local-environment) for compiling and running the Angular application and its dependencies
 - [make](https://www.gnu.org/software/make/) for using the makefiles that simplify some development tasks (running tests, building Docker containers)
 
-You can start the database container, the backend and the frontend locally by running `scripts/start-live-reloading`. This command initiates all three processes in the same terminal with different output colors; the frontend and backend are started with live-reloading. Note that this script expects to be run from the root of the kant-search repository and requires the submodules to be initialized. If you add the `-d` option, the backend application will use the delve debugger to start in debugging mode.
+You can start the database container, the backend and the frontend locally by running `scripts/start-live-reloading`. This command initiates all three processes in the same terminal with different output colors; the frontend and backend are started with live-reloading. Note that this script expects to be run from the root of the kant-search repository and requires the submodules to be initialized. If you add the `-d` option, the backend application will use the delve debugger to start in debugging mode without live-reloading.
 
 ### API code generation
 

@@ -24,6 +24,7 @@
     "fullchain",
     "GOFILE",
     "gomock",
+    "grafana",
     "healthcheck",
     "healthstatus",
     "htpasswd",

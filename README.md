@@ -19,7 +19,7 @@ Both the backend and the frontend are available as Docker containers as `ghcr.io
 - download the configuration files by running the `scripts/download-config.sh` script (the input is the kant-search version you want to deploy)
 - generate internal certificates and the elasticsearch password by running the `scripts/generate-auth-files.sh` script
 - generate a user-password pair by running the script `add-admin-user.sh` (the input is the username for the admin user who is allowed to upload XML files, the output is the generated password)
-- add your hostname for the `KSGO_ALLOW_ORIGINS` variable in the `kant-search-stack.yml` file and update the API URL in the frontend `config.json` (use your hostname instead of `localhost` and remove the port number)
+- add your hostname for the `KSGO_ALLOW_ORIGINS` variable in the `kant-search-stack.yml` file and update the API URL in the frontend `config.json` (replace `http://localhost:3000` with the appropriate URL)
 - start the application with `docker stack deploy -c kant-search-stack.yml <stack name>`
 
 If you want to deploy the applications without Docker, please refer to the [Elasticsearch](https://www.elastic.co/docs/solutions/search) documentation and the configuration documentation in the backend and frontend README files.

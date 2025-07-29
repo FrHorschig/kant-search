@@ -46,7 +46,7 @@ EOF
   openssl x509 -req -in ${name}.csr -CA $CA_CERT -CAkey $CA_KEY -CAcreateserial -out ${name}.crt -days 365 -sha256 -extfile ${name}.cnf -extensions v3_req
 }
 
-SERVICES=("frontend" "backend" "elasticsearch")
+SERVICES=("frontend" "backend" "elasticsearch" "grafana")
 for svc in "${SERVICES[@]}"; do
   generate_cert $svc
 done

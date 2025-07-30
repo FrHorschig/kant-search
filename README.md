@@ -22,6 +22,8 @@ Both the backend and the frontend are available as Docker containers as `ghcr.io
 - add your hostname for the `KSGO_ALLOW_ORIGINS` variable in the `kant-search-stack.yml` file and update the API URL in the frontend `config.json` (replace `http://localhost:3000` with the appropriate URL)
 - start the application with `docker stack deploy -c kant-search-stack.yml <stack name>`
 
+The stack also includes three containers for Grafana monitoring. To make these work, add your hostname and the username and password of the admin user to `config/grafana/grafana.ini`. Note that you can import dashboard configurations, one that is suitable for monitoring the kant-search stack is [this one](https://grafana.com/grafana/dashboards/193-docker-monitoring/).
+
 If you want to deploy the applications without Docker, please refer to the [Elasticsearch](https://www.elastic.co/docs/solutions/search) documentation and the configuration documentation in the backend and frontend README files.
 
 ## Upload of Kant-Korpus-XML files

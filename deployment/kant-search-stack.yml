@@ -113,12 +113,50 @@ services:
     networks:
       - backend
 
+  grafana:
+    image: grafana/grafana:12.1.0
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./config/grafana/grafana.ini:/etc/grafana/grafana.ini:ro
+      - ./config/grafana/datasource.yml:/etc/grafana/provisioning/datasources/datasource.yml
+      - ./auth/grafana.crt:/etc/grafana/ssl/grafana.crt:ro
+      - ./auth/grafana.key:/etc/grafana/ssl/grafana.key:ro
+      - ./auth/internal-ca.crt:/etc/grafana/ssl/internal-ca.crt:ro
+    deploy:
+      replicas: 1
+    networks:
+      - proxy
+
+  prometheus:
+    image: prom/prometheus:v3.5.0
+    volumes:
+      - ./config/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus-data:/prometheus
+    deploy:
+      replicas: 1
+    networks:
+      - proxy
+
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:latest
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+    deploy:
+      replicas: 1
+    networks:
+      - proxy
+
 secrets:
   ksdb_password:
     external: true
 
 volumes:
   elastic-data:
+  grafana-data:
+  prometheus-data:
 
 networks:
   proxy:

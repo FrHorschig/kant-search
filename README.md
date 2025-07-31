@@ -21,7 +21,7 @@ Both the backend and the frontend are available as Docker containers as `ghcr.io
 - generate an admin user-password pair (the admin user is allowed to upload XML files) by running the script `add-admin-user.sh` (the input is the username, the output is the generated password)
 - start the application with `docker stack deploy -c kant-search-stack.yml <stack name>`
 
-The stack also includes three containers for Grafana monitoring. To make these work, add your hostname and optionally the username and password of the admin user to `config/grafana/grafana.ini` (users can also be added later via the UI). Note that you can import dashboard configurations, one that is suitable for monitoring the kant-search stack is [this one](https://grafana.com/grafana/dashboards/193-docker-monitoring/).
+The stack also includes three containers for Grafana monitoring. To make these work, add your hostname and optionally the username and password of the admin user to `config/grafana/grafana.ini` (users can also be added later via the UI). Note that you can import dashboard configurations, a good starting point is [this one](https://grafana.com/grafana/dashboards/193-docker-monitoring/).
 
 If you want to deploy the applications without Docker, please refer to the [Elasticsearch](https://www.elastic.co/docs/solutions/search) documentation and the configuration documentation in the [backend](https://github.com/FrHorschig/kant-search-backend/) and [frontend](https://github.com/FrHorschig/kant-search-frontend/) README files.
 

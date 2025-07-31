@@ -10,7 +10,7 @@ export KSGO_ALLOW_ORIGINS=*
 export KSGO_RETRY_COUNT=30
 export KSGO_RETRY_INTERVAL=5
 export KSGO_DISABLE_SSL=true
-export KSGO_PORT=3000
+export KSGO_PORT=5000
 
 USE_DEBUGGER=false
 if [[ "$1" == "-d" ]]; then

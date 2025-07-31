@@ -19,7 +19,7 @@ Both the backend and the frontend are available as Docker containers as `ghcr.io
 - download the configuration files by running the `scripts/download-config.sh` script (the input is the kant-search version you want to deploy)
 - generate internal certificates and the elasticsearch password by running the `scripts/generate-auth-files.sh` script
 - generate a user-password pair by running the script `add-admin-user.sh` (the input is the username for the admin user who is allowed to upload XML files, the output is the generated password)
-- add your hostname for the `KSGO_ALLOW_ORIGINS` variable in the `kant-search-stack.yml` file and update the API URL in the frontend `config.json` (replace `http://localhost:3000` with the appropriate URL)
+- add your hostname for the `KSGO_ALLOW_ORIGINS` variable in the `kant-search-stack.yml` file and update the API URL in the frontend `config.json` (replace `http://localhost:5000` with the appropriate URL)
 - start the application with `docker stack deploy -c kant-search-stack.yml <stack name>`
 
 The stack also includes three containers for Grafana monitoring. To make these work, add your hostname and the username and password of the admin user to `config/grafana/grafana.ini`. Note that you can import dashboard configurations, one that is suitable for monitoring the kant-search stack is [this one](https://grafana.com/grafana/dashboards/193-docker-monitoring/).

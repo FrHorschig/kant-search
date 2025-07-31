@@ -15,16 +15,15 @@ If you want to improve this code or the code of one of the submodules, please re
 
 Both the backend and the frontend are available as Docker containers as `ghcr.io/frhorschig/kant-search-frontend` and `ghcr.io/frhorschig/kant-search-backend`. You can deploy the kant-search applications in a [Docker Swarm](https://docs.docker.com/engine/swarm/) by using the `deployment/kant-search-stack.yml` file by following these steps:
 - copy the files from the `deployment` directory to your server
-- get a certificate for your domain and adjust the docker volume mappings of the reverse proxy for the Let's Encrypt files to match your certificate location (if you don't use Let's Encrypt, also update the certificate path in `config/reverse-proxy.conf`)
-- download the configuration files by running the `scripts/download-config.sh` script (the input is the kant-search version you want to deploy)
+- get a Let's Encrypt certificate for your domain, if you don't use Let's Encrypt, or don't use the current default settings, you must update the certificate paths in `kants-search-stack.yml` and `config/reverse-proxy.conf` manually
+- download and update the configuration by running the `scripts/generate-config.sh` script (the first input is the kant-search version you want to deploy, the second one your hostname)
 - generate internal certificates and the elasticsearch password by running the `scripts/generate-auth-files.sh` script
-- generate a user-password pair by running the script `add-admin-user.sh` (the input is the username for the admin user who is allowed to upload XML files, the output is the generated password)
-- add your hostname for the `KSGO_ALLOW_ORIGINS` variable in the `kant-search-stack.yml` file and update the API URL in the frontend `config.json` (replace `http://localhost:5000` with the appropriate URL)
+- generate an admin user-password pair (the admin user is allowed to upload XML files) by running the script `add-admin-user.sh` (the input is the username, the output is the generated password)
 - start the application with `docker stack deploy -c kant-search-stack.yml <stack name>`
 
 The stack also includes three containers for Grafana monitoring. To make these work, add your hostname and the username and password of the admin user to `config/grafana/grafana.ini`. Note that you can import dashboard configurations, one that is suitable for monitoring the kant-search stack is [this one](https://grafana.com/grafana/dashboards/193-docker-monitoring/).
 
-If you want to deploy the applications without Docker, please refer to the [Elasticsearch](https://www.elastic.co/docs/solutions/search) documentation and the configuration documentation in the backend and frontend README files.
+If you want to deploy the applications without Docker, please refer to the [Elasticsearch](https://www.elastic.co/docs/solutions/search) documentation and the configuration documentation in the [backend](https://github.com/FrHorschig/kant-search-backend/) and [frontend](https://github.com/FrHorschig/kant-search-frontend/) README files.
 
 ## Upload of Kant-Korpus-XML files
 
@@ -41,8 +40,6 @@ curl -X POST "https://<hostname>/api/v1/upload" \
 ## Development setup
 
 To setup this repository and its submodules, run `scripts/init.bash`.
-
-WARNING: The following setup is made to work with a user level Docker setup, it may or may not work with the default Docker setup
 
 ### Dependencies
 

@@ -111,6 +111,10 @@ services:
       timeout: 5s
       retries: 50
       start_period: 30s
+    deploy:
+      resources:
+        limits:
+          memory: 1g
     networks:
       - backend
 

@@ -34,6 +34,8 @@ services:
       - ./auth/frontend.crt:/etc/nginx/ssl/frontend.crt:ro
       - ./auth/frontend.key:/etc/nginx/ssl/frontend.key:ro
       - ./config/frontend/config.json:/usr/share/nginx/html/assets/config.json:ro
+      - ./config/frontend/i18n:/usr/share/nginx/html/assets/i18n:ro
+      - ./config/frontend/startpage:/usr/share/nginx/html/assets/startpage:ro
     healthcheck:
       test:
         [

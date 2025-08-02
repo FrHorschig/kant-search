@@ -47,9 +47,11 @@ You need the following software to contribute to the development of the code:
 
 - [Docker](https://www.docker.com/get-started/) for running the database container, sonarqube, sonar-scanner and the OpenAPI Generators
 - [Go](https://go.dev/learn/) (Version 1.24 or greater) for compiling the Go code
-- [modd](https://github.com/cortesi/modd) for starting the Go backend with live-reloading (has to be installed in ~/go/bin)
+- [gomock](https://github.com/golang/mock) for generating mock structs (is installed by the init script)
+- [modd](https://github.com/cortesi/modd) for starting the Go backend with live-reloading (is installed by the init script)
 - [delve](https://github.com/go-delve/delve) for starting the Go backend in debugging mode (has to be installed in ~/go/bin)
 - [npm](https://docs.npmjs.com/getting-started/configuring-your-local-environment) for compiling and running the Angular application and its dependencies
+- a headless Chrome browser (usually comes with Chrome installations) for Angular testing, for details see the frontend README file
 - [make](https://www.gnu.org/software/make/) for using the makefiles that simplify some development tasks (running tests, building Docker containers)
 
 You can start the database container, the backend and the frontend locally by running `scripts/start-live-reloading`. This command initiates all three processes in the same terminal with different output colors; the frontend and backend are started with live-reloading. Note that this script expects to be run from the root of the kant-search repository and requires the submodules to be initialized. If you add the `-d` option, the backend application will use the delve debugger to start in debugging mode without live-reloading.

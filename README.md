@@ -18,10 +18,10 @@ Both the backend and the frontend are available as Docker containers as `ghcr.io
 - get a Let's Encrypt certificate for your domain, if you don't use Let's Encrypt, or don't use the current default settings, you must update the certificate paths in `kants-search-stack.yml` and `config/reverse-proxy.conf` manually
 - download and update the configuration by running the `scripts/generate-config.sh` script (the first input is the kant-search version you want to deploy, the second one your hostname)
 - generate internal certificates and the elasticsearch password by running the `scripts/generate-auth-files.sh` script
-- generate an admin user-password pair (the admin user is allowed to upload XML files) by running the script `add-admin-user.sh` (the input is the username, the output is the generated password)
+- generate an admin user-password pair (the admin user is allowed to upload XML files) by running the script `add-admin-user.sh` (the input is the username, the output is the generated password, note that you have to copy the password at that point, because the password file only contains an encrypted version of it)
 - start the application with `docker stack deploy -c kant-search-stack.yml <stack name>`
 
-The stack also includes three containers for Grafana monitoring. To make these work, add your hostname and optionally the username and password of the admin user to `config/grafana/grafana.ini` (users can also be added later via the UI). Note that you can import dashboard configurations, a good starting point is [this one](https://grafana.com/grafana/dashboards/193-docker-monitoring/).
+The stack also includes three containers for Grafana monitoring. To make these work, add your hostname and the username and password of the admin user to `config/grafana/grafana.ini` (users can also be added later via the UI). Note that you can import existing dashboard configurations, a good starting point is [this one](https://grafana.com/grafana/dashboards/193-docker-monitoring/).
 
 If you want to deploy the applications without Docker, please refer to the [Elasticsearch](https://www.elastic.co/docs/solutions/search) documentation and the configuration documentation in the [backend](https://github.com/FrHorschig/kant-search-backend/) and [frontend](https://github.com/FrHorschig/kant-search-frontend/) README files.
 

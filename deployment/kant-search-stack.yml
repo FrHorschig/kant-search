@@ -29,7 +29,7 @@ services:
       - proxy
 
   frontend:
-    image: ghcr.io/frhorschig/kant-search-frontend:0.8.0
+    image: ghcr.io/frhorschig/kant-search-frontend:0.9.0
     volumes:
       - ./auth/frontend.crt:/etc/nginx/ssl/frontend.crt:ro
       - ./auth/frontend.key:/etc/nginx/ssl/frontend.key:ro
@@ -50,7 +50,7 @@ services:
       - proxy
 
   backend:
-    image: ghcr.io/frhorschig/kant-search-backend:0.8.0
+    image: ghcr.io/frhorschig/kant-search-backend:0.9.0
     volumes:
       - ./config/backend:/app/config:ro
       - ./auth:/app/certs:ro

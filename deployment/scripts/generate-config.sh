@@ -18,3 +18,6 @@ sed -i -E "s|(\/etc/letsencrypt/live/)<hostname>|\1$base_domain|g" kant-search-s
 sed -i -E "s|(https://)<hostname>|\1$2|g" kant-search-stack.yml
 sed -i -E "s|(domain = )<hostname>|\1$2|g" config/grafana/grafana.ini
 sed -i -E "s|(\"apiUrl\": \")http://localhost:5000|\1https://$2|g" config/frontend/config.json
+
+# Create log directory
+mkdir -p log/backend

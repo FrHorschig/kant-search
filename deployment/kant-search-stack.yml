@@ -54,6 +54,7 @@ services:
     volumes:
       - ./config/backend:/app/config:ro
       - ./auth:/app/certs:ro
+      - ./logs/backend:/var/logs/kant-search-backend
     secrets:
       - ksdb_password
     environment:
@@ -62,13 +63,10 @@ services:
       - KSDB_USERNAME=elastic
       - KSDB_PASSWORD=/run/secrets/ksdb_password
       - KSDB_CERT=/app/certs/internal-ca.crt
-      - KSGO_RETRY_COUNT=100
-      - KSGO_RETRY_INTERVAL=5
       - KSGO_CONFIG_PATH=/app/config
       - KSGO_CERT=/app/certs/backend.crt
       - KSGO_KEY=/app/certs/backend.key
       - KSGO_ALLOW_ORIGINS=https://<hostname>
-      - KSGO_PORT=5000
     healthcheck:
       test:
         [

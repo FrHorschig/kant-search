@@ -7,10 +7,9 @@ export KSDB_PORT=9200
 export KSDB_USERNAME="elastic"
 export KSDB_PASSWORD="es_password"
 export KSGO_ALLOW_ORIGINS=*
-export KSGO_RETRY_COUNT=30
-export KSGO_RETRY_INTERVAL=5
+
 export KSGO_DISABLE_SSL=true
-export KSGO_PORT=5000
+export KSGO_DISABLE_LOGFILES=true
 
 USE_DEBUGGER=false
 if [[ "$1" == "-d" ]]; then

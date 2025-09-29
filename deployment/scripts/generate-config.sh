@@ -5,12 +5,14 @@ if [ "$#" -ne 2 ]; then
     exit 1
 fi
 
+# Download config files for backend and frontend
 mkdir -p config/backend config/frontend
 curl -L -o config/backend/volume-metadata.json https://github.com/FrHorschig/kant-search-backend/releases/download/$1/volume-metadata.json
 curl -L -o config/frontend/config.json https://github.com/FrHorschig/kant-search-frontend/releases/download/$1/config.json
-curl -L -o config/frontend/i18n fig.json https://github.com/FrHorschig/kant-search-frontend/releases/download/$1/i18n
-curl -L -o config/frontend/startpage fig.json https://github.com/FrHorschig/kant-search-frontend/releases/download/$1/startpage
+curl -L -o config/frontend/i18n https://github.com/FrHorschig/kant-search-frontend/releases/download/$1/i18n
+curl -L -o config/frontend/startpage https://github.com/FrHorschig/kant-search-frontend/releases/download/$1/startpage
 
+# Replace `<hostname>` placeholder
 base_domain=$(echo "$2" | awk -F. '{n=NF; print $(n-1)"."$n}')
 sed -i -E "s|(\/etc/letsencrypt/live/)<hostname>|\1$base_domain|g" kant-search-stack.yml
 sed -i -E "s|(https://)<hostname>|\1$2|g" kant-search-stack.yml

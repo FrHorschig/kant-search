@@ -1,0 +1,29 @@
+name: Publish
+
+on:
+  push:
+    tags:
+      - "*"
+
+jobs:
+  publish:
+    name: publish deployment files
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+      - name: rename deployment directory
+        run: |
+          mv deployment kant-search
+      - name: zip deployment directory
+        run: |
+          zip -r "kant-search-${{ github.ref_name }}.zip" kant-search
+      - name: create release
+        uses: softprops/action-gh-release@v2.0.4
+        with:
+          tag_name: ${{ github.ref_name }}
+          files: |
+            kant-search-${{ github.ref_name }}.zip
+          token: ${{ secrets.GITHUB_TOKEN }}

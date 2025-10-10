@@ -22,4 +22,4 @@ sed -i -E "s|(domain = )<hostname>|\1$2|g" config/grafana/grafana.ini
 sed -i -E "s|(\"apiUrl\": \")http://localhost:5000|\1https://$2|g" config/frontend/config.json
 
 # Create log directory
-mkdir -p logs/backend
+mkdir -p log/backend

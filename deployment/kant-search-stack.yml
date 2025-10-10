@@ -54,7 +54,7 @@ services:
     volumes:
       - ./config/backend:/app/config:ro
       - ./auth:/app/certs:ro
-      - ./logs/backend:/var/logs/kant-search-backend
+      - ./log/backend:/var/log/kant-search-backend
     secrets:
       - ksdb_password
     environment:

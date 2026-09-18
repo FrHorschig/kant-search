@@ -21,7 +21,7 @@ sed -i "s|<base-path>|$3|" kant-search-stack.yml
 sed -i "s|<port>|$4|g" kant-search-stack.yml
 
 sed -i "s|<hostname>|$2|g" config/grafana/grafana.ini
-sed -i "s|http://localhost:5000|https://$2/${3:+$3/}|" config/frontend/config.json
+sed -i "s|http://localhost:5000|https://$2${3:+$3/}|" config/frontend/config.json
 sed -i "s|<port>|$4|" config/reverse-proxy.conf
 
 # Create log directory

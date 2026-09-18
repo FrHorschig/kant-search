@@ -4,8 +4,8 @@ services:
   reverse-proxy:
     image: nginx:1.29.0
     ports:
-      - target: TODO_PORT
-        published: TODO_PORT
+      - target: <port>
+        published: <port>
         protocol: tcp
         mode: host
     volumes:

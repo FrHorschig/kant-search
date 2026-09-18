@@ -1,7 +1,8 @@
 #!/bin/bash
 
-if [ "$#" -ne 2 ]; then
-    echo "Usage: $0 <kant-search version number> <hostname>"
+if [ "$#" -ne 3 ]; then
+    echo "Usage: $0 <kant-search version number> <hostname> <base-path>"
+    echo "       base-path needs to include the "
     exit 1
 fi
 
@@ -15,11 +16,10 @@ rm ks-frontend-config.zip
 cd ..
 
 # Replace `<hostname>` placeholder
-base_domain=$(echo "$2" | awk -F. '{n=NF; print $(n-1)"."$n}')
-sed -i -E "s|(\/etc/letsencrypt/live/)<hostname>|\1$base_domain|g" kant-search-stack.yml
-sed -i -E "s|(https://)<hostname>|\1$2|g" kant-search-stack.yml
-sed -i -E "s|(domain = )<hostname>|\1$2|g" config/grafana/grafana.ini
-sed -i -E "s|(\"apiUrl\": \")http://localhost:5000|\1https://$2|g" config/frontend/config.json
+sed -i -E "s|(\/etc/letsencrypt/live/)<hostname>|\1$2|g" kant-search-stack.yml
+sed -i -E "s|(https://)<hostname>|\1$2" kant-search-stack.yml
+sed -i -E "s|(domain = )<hostname>|\1$2" config/grafana/grafana.ini
+sed -i -E "s|(\"apiUrl\": \")http://localhost:5000|\1https://$2/$3" config/frontend/config.json
 
 # Create log directory
 mkdir -p log/backend

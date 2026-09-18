@@ -14,11 +14,11 @@ If you want to improve this code or the code of one of the submodules, please re
 ## Installation
 
 Both the backend and the frontend are available as Docker containers as `ghcr.io/frhorschig/kant-search-frontend` and `ghcr.io/frhorschig/kant-search-backend`. You can deploy the kant-search applications in a [Docker Swarm](https://docs.docker.com/engine/swarm/) by using the `deployment/kant-search-stack.yml` file by following these steps:
+- install docker and initialize the swarm with `docker swarm init`
 - copy the files from the `deployment` directory to your server
-- get a Let's Encrypt certificate for your domain, if you don't use Let's Encrypt, or don't use the current default settings, you must update the certificate paths in `kants-search-stack.yml` and `config/reverse-proxy.conf` manually
-- download and update the configuration by running the `scripts/generate-config.sh` script (the first input is the kant-search version you want to deploy, the second one your hostname)
-- generate internal certificates and the elasticsearch password by running the `scripts/generate-auth-files.sh` script
-- generate an admin user-password pair (the admin user is allowed to upload XML files) by running the script `add-admin-user.sh` (the input is the username, the output is the generated password, note that you have to copy the password at that point, because the password file only contains an encrypted version of it)
+- get a Let's Encrypt certificate for your domain; if you don't use Let's Encrypt, or don't use the current default settings, you must update the certificate paths in `kants-search-stack.yml` and `config/reverse-proxy.conf` manually
+- download and update the configuration by running the `scripts/generate-config.sh` script (specify hostname and base path without `/` at the start and end)
+- generate internal certificates, the elasticsearch password and grafana admin login by running the `scripts/generate-auth-files.sh` script; write down the generated admin password somewhere safe (it is used for uploading the XML files and for accessing and logging in to grafana)
 - start the application with `docker stack deploy -c kant-search-stack.yml <stack name>`
 
 The stack also includes three containers for Grafana monitoring. To make these work, add your hostname and the username and password of the admin user to `config/grafana/grafana.ini` (users can also be added later via the UI). Note that you can import existing dashboard configurations, a good starting point is [this one](https://grafana.com/grafana/dashboards/193-docker-monitoring/).

@@ -25,7 +25,7 @@ services:
       - proxy
 
   frontend:
-    image: ghcr.io/frhorschig/kant-search-frontend:1.0.0
+    image: ghcr.io/frhorschig/kant-search-frontend:<version>
     environment:
       BASE_PATH: <base-path>
     volumes:
@@ -48,7 +48,7 @@ services:
       - proxy
 
   backend:
-    image: ghcr.io/frhorschig/kant-search-backend:1.0.0
+    image: ghcr.io/frhorschig/kant-search-backend:<version>
     volumes:
       - ./config/backend:/app/config:ro
       - ./auth:/app/certs:ro

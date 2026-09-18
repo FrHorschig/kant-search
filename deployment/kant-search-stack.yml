@@ -4,12 +4,8 @@ services:
   reverse-proxy:
     image: nginx:1.29.0
     ports:
-      - target: 443
-        published: 443
-        protocol: tcp
-        mode: host
-      - target: 80
-        published: 80
+      - target: TODO_PORT
+        published: TODO_PORT
         protocol: tcp
         mode: host
     volumes:
@@ -30,6 +26,8 @@ services:
 
   frontend:
     image: ghcr.io/frhorschig/kant-search-frontend:1.0.0
+    environment:
+      BASE_PATH: <base-path>
     volumes:
       - ./auth/frontend.crt:/etc/nginx/ssl/frontend.crt:ro
       - ./auth/frontend.key:/etc/nginx/ssl/frontend.key:ro
@@ -66,7 +64,7 @@ services:
       - KSGO_CONFIG_PATH=/app/config
       - KSGO_CERT=/app/certs/backend.crt
       - KSGO_KEY=/app/certs/backend.key
-      - KSGO_ALLOW_ORIGINS=https://<hostname>
+      - KSGO_ALLOW_ORIGINS=https://<hostname> TODO_QUESTION
     healthcheck:
       test:
         [

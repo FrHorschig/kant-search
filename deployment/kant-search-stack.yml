@@ -8,15 +8,18 @@ services:
         published: <port>
         protocol: tcp
         mode: host
+    secrets:
+      - source: internal_ca_crt
+        target: /etc/nginx/ssl/internal-ca.crt
+      - source: htpasswd_admin
+        target: /etc/nginx/htpasswd-admin
     volumes:
       - /etc/letsencrypt/live/<hostname>/fullchain.pem:/etc/nginx/ssl/fullchain.pem:ro
       - /etc/letsencrypt/live/<hostname>/privkey.pem:/etc/nginx/ssl/privkey.pem:ro
-      - ./auth/internal-ca.crt:/etc/nginx/ssl/internal-ca.crt:ro
-      - ./auth/htpasswd-admin:/etc/nginx/htpasswd-admin:ro
       - ./config/reverse-proxy.conf:/etc/nginx/conf.d/default.conf:ro
     healthcheck:
       test:
-        ["CMD-SHELL", "curl -s --insecure https://localhost/ | grep -q '<html'"]
+        ["CMD-SHELL", "curl -fsSk http://localhost:<port>/ | grep -q '<html'"]
       interval: 10s
       timeout: 5s
       retries: 50
@@ -27,10 +30,13 @@ services:
   frontend:
     image: ghcr.io/frhorschig/kant-search-frontend:<version>
     environment:
-      BASE_PATH: <base-path>
+      - BASE_PATH=<base-path>
+    secrets:
+      - source: frontend_crt
+        target: /etc/nginx/ssl/frontend.crt
+      - source: frontend_key
+        target: /etc/nginx/ssl/frontend.key
     volumes:
-      - ./auth/frontend.crt:/etc/nginx/ssl/frontend.crt:ro
-      - ./auth/frontend.key:/etc/nginx/ssl/frontend.key:ro
       - ./config/frontend/config.json:/usr/share/nginx/html/assets/config.json:ro
       - ./config/frontend/i18n:/usr/share/nginx/html/assets/i18n:ro
       - ./config/frontend/startpage:/usr/share/nginx/html/assets/startpage:ro
@@ -49,12 +55,18 @@ services:
 
   backend:
     image: ghcr.io/frhorschig/kant-search-backend:<version>
+    secrets:
+      - source: internal_ca_crt
+        target: /app/certs/internal-ca.crt
+      - source: backend_crt
+        target: /app/certs/backend.crt
+      - source: backend_key
+        target: /app/certs/backend.key
+      - source: ksdb_password
+        target: ksdb_password
     volumes:
       - ./config/backend:/app/config:ro
-      - ./auth:/app/certs:ro
       - ./log/backend:/var/log/kant-search-backend
-    secrets:
-      - ksdb_password
     environment:
       - KSDB_URL=https://elasticsearch
       - KSDB_PORT=9200
@@ -81,11 +93,17 @@ services:
 
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:8.18.4
+    secrets:
+      - source: internal_ca_crt
+        target: /usr/share/elasticsearch/config/certs/internal-ca.crt
+      - source: elasticsearch_crt
+        target: /usr/share/elasticsearch/config/certs/elasticsearch.crt
+      - source: elasticsearch_key
+        target: /usr/share/elasticsearch/config/certs/elasticsearch.key
+      - source: ksdb_password
+        target: /run/secrets/ksdb_password
     volumes:
       - elastic-data:/usr/share/elasticsearch/data
-      - ./auth:/usr/share/elasticsearch/config/certs:ro
-    secrets:
-      - ksdb_password
     environment:
       - discovery.type=single-node
       - ELASTIC_PASSWORD=/run/secrets/ksdb_password
@@ -103,7 +121,7 @@ services:
       test:
         [
           "CMD-SHELL",
-          "curl -s --cacert config/certs/internal-ca.crt https://localhost:9200 | grep -q 'missing authentication credentials'",
+          "curl -s --cacert /usr/share/elasticsearch/config/certs/internal-ca.crt https://localhost:9200 | grep -q 'missing authentication credentials'",
         ]
       interval: 10s
       timeout: 5s
@@ -118,13 +136,17 @@ services:
 
   grafana:
     image: grafana/grafana:12.1.0
+    secrets:
+      - source: internal_ca_crt
+        target: /etc/grafana/ssl/internal-ca.crt
+      - source: grafana_crt
+        target: /etc/grafana/ssl/grafana.crt
+      - source: grafana_key
+        target: /etc/grafana/ssl/grafana.key
     volumes:
       - grafana-data:/var/lib/grafana
       - ./config/grafana/grafana.ini:/etc/grafana/grafana.ini:ro
       - ./config/grafana/datasource.yml:/etc/grafana/provisioning/datasources/datasource.yml
-      - ./auth/grafana.crt:/etc/grafana/ssl/grafana.crt:ro
-      - ./auth/grafana.key:/etc/grafana/ssl/grafana.key:ro
-      - ./auth/internal-ca.crt:/etc/grafana/ssl/internal-ca.crt:ro
     deploy:
       replicas: 1
     networks:
@@ -133,7 +155,7 @@ services:
   prometheus:
     image: prom/prometheus:v3.5.0
     volumes:
-      - ./config/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./config/prometheus.yml:/etc/prometheus/prometheus.yml:ro
       - prometheus-data:/prometheus
     deploy:
       replicas: 1
@@ -153,6 +175,26 @@ services:
       - proxy
 
 secrets:
+  internal_ca_crt:
+    external: true
+  frontend_crt:
+    external: true
+  frontend_key:
+    external: true
+  backend_crt:
+    external: true
+  backend_key:
+    external: true
+  elasticsearch_crt:
+    external: true
+  elasticsearch_key:
+    external: true
+  grafana_crt:
+    external: true
+  grafana_key:
+    external: true
+  htpasswd_admin:
+    external: true
   ksdb_password:
     external: true
 

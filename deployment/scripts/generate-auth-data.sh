@@ -9,6 +9,7 @@ if [ "$#" -ne 1 ]; then
     exit 1
 fi
 
+
 # generate CA certificate
 CA_KEY=internal-ca.key
 CA_CERT=internal-ca.crt
@@ -17,6 +18,7 @@ if [ ! -f $CA_KEY ] || [ ! -f $CA_CERT ]; then
   openssl genrsa -out $CA_KEY 4096
   openssl req -x509 -new -nodes -key $CA_KEY -sha256 -days 3650 -out $CA_CERT -subj "/C=DE/O=kant-search/CN=kant-search"
 fi
+
 
 # generate application certificates
 generate_cert() {
@@ -56,15 +58,18 @@ for svc in "${SERVICES[@]}"; do
   generate_cert $svc
 done
 
+
 # generate password for Elasticsearch database
 KSDB_PASSWORD=$(tr -dc 'A-Za-z0-9' < /dev/urandom | head -c 64)
 echo "$KSDB_PASSWORD" | docker secret create ksdb_password -
 
 
-# generate password for Elasticsearch database
+# generate admin password
 USERNAME="$1"
 PASSWORD=$(tr -dc 'A-Za-z0-9' < /dev/urandom | head -c 64)
 htpasswd -cbB htpasswd-admin "$USERNAME" "$PASSWORD"
 cd ..
 
 echo "Password for '$USERNAME': $PASSWORD"
+sed -i "s|<admin-username>|$USERNAME" config/grafana/grafana.ini
+sed -i "s|<admin-password>|$PASSWORD" config/grafana/grafana.ini

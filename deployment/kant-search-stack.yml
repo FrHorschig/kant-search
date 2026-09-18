@@ -64,7 +64,7 @@ services:
       - KSGO_CONFIG_PATH=/app/config
       - KSGO_CERT=/app/certs/backend.crt
       - KSGO_KEY=/app/certs/backend.key
-      - KSGO_ALLOW_ORIGINS=https://<hostname> TODO_QUESTION
+      - KSGO_ALLOW_ORIGINS=https://<hostname>
     healthcheck:
       test:
         [

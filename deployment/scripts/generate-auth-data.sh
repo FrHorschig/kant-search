@@ -2,9 +2,14 @@
 
 set -e
 mkdir -p auth
-
 cd auth/
-# === generate CA certificate ==================================================
+
+if [ "$#" -ne 1 ]; then
+    echo "Usage: $0 <admin username>"
+    exit 1
+fi
+
+# generate CA certificate
 CA_KEY=internal-ca.key
 CA_CERT=internal-ca.crt
 if [ ! -f $CA_KEY ] || [ ! -f $CA_CERT ]; then
@@ -13,7 +18,7 @@ if [ ! -f $CA_KEY ] || [ ! -f $CA_CERT ]; then
   openssl req -x509 -new -nodes -key $CA_KEY -sha256 -days 3650 -out $CA_CERT -subj "/C=DE/O=kant-search/CN=kant-search"
 fi
 
-# === generate application certificates ========================================
+# generate application certificates
 generate_cert() {
   local name=$1
   echo "Generating certificate for $name..."
@@ -51,6 +56,15 @@ for svc in "${SERVICES[@]}"; do
   generate_cert $svc
 done
 
-# === generate password for Elasticsearch database =============================
+# generate password for Elasticsearch database
 KSDB_PASSWORD=$(tr -dc 'A-Za-z0-9' < /dev/urandom | head -c 64)
 echo "$KSDB_PASSWORD" | docker secret create ksdb_password -
+
+
+# generate password for Elasticsearch database
+USERNAME="$1"
+PASSWORD=$(tr -dc 'A-Za-z0-9' < /dev/urandom | head -c 64)
+htpasswd -cbB htpasswd-admin "$USERNAME" "$PASSWORD"
+cd ..
+
+echo "Password for '$USERNAME': $PASSWORD"

@@ -60,8 +60,9 @@ done
 
 
 # generate password for Elasticsearch database
+docker secret rm ksdb_password >/dev/null 2>&1 || true
 KSDB_PASSWORD=$(tr -dc 'A-Za-z0-9' < /dev/urandom | head -c 64)
-echo "$KSDB_PASSWORD" | docker secret create ksdb_password -
+printf '%s' "$KSDB_PASSWORD" | docker secret create ksdb_password - > /dev/null
 
 
 # generate admin password
@@ -71,5 +72,5 @@ htpasswd -cbB htpasswd-admin "$USERNAME" "$PASSWORD"
 cd ..
 
 echo "Password for '$USERNAME': $PASSWORD"
-sed -i "s|<admin-username>|$USERNAME" config/grafana/grafana.ini
-sed -i "s|<admin-password>|$PASSWORD" config/grafana/grafana.ini
+sed -i "s|<admin-username>|$USERNAME|" config/grafana/grafana.ini
+sed -i "s|<admin-password>|$PASSWORD|" config/grafana/grafana.ini

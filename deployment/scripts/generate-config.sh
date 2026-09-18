@@ -14,12 +14,13 @@ unzip ks-frontend-config.zip
 rm ks-frontend-config.zip
 cd ..
 
-# Replace `<hostname>` placeholders
+# Replace hostname and base path placeholders
 sed -i "s|<hostname>|$2|g" kant-search-stack.yml
 sed -i "s|<hostname>|$2|g" config/grafana/grafana.ini
-sed -i "s|http://localhost:5000|https://$2/${3:+$3/}|" config/frontend/config.json`
+sed -i "s|http://localhost:5000|https://$2/${3:+$3/}|" config/frontend/config.json
+sed -i "s|<base-path>|$3|" kant-search-stack.yml
 
-# Replace <port> placeholders
+# Replace port placeholders
 sed -i "s|<port>|$4|g" kant-search-stack.yml
 sed -i "s|<port>|$4|" config/reverse-proxy.conf
 

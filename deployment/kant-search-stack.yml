@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   reverse-proxy:
-    image: nginx:1.29.0
+    image: nginx:1.31.0
     ports:
       - target: <port>
         published: <port>
@@ -19,7 +19,7 @@ services:
       - ./config/reverse-proxy.conf:/etc/nginx/conf.d/default.conf:ro
     healthcheck:
       test:
-        ["CMD-SHELL", "curl -fsSk http://localhost:<port>/ | grep -q '<html'"]
+        ["CMD-SHELL", "curl -fsSk https://localhost:<port>/ | grep -q '<html'"]
       interval: 10s
       timeout: 5s
       retries: 50
@@ -29,8 +29,6 @@ services:
 
   frontend:
     image: ghcr.io/frhorschig/kant-search-frontend:<version>
-    environment:
-      - BASE_PATH=<base-path>
     secrets:
       - source: frontend_crt
         target: /etc/nginx/ssl/frontend.crt
@@ -40,6 +38,8 @@ services:
       - ./config/frontend/config.json:/usr/share/nginx/html/assets/config.json:ro
       - ./config/frontend/i18n:/usr/share/nginx/html/assets/i18n:ro
       - ./config/frontend/startpage:/usr/share/nginx/html/assets/startpage:ro
+    environment:
+      - BASE_PATH=<base-path>
     healthcheck:
       test:
         [

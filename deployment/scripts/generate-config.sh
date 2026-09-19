@@ -15,17 +15,19 @@ rm ks-frontend-config.zip
 cd ..
 
 # Replace placeholders
-base-path=$3
-base-path="${base-path#/}"
-base_bath="${base-path%/}"
+base_path=$3
+base_path="${base_path#/}"
+base_bath="${base_path%/}"
 sed -i "s|<version>|$1|g" kant-search-stack.yml
 sed -i "s|<hostname>|$2|g" kant-search-stack.yml
-sed -i "s|<base-path>|${base-path}|" kant-search-stack.yml
+sed -i "s|<base-path>|${base_path}|" kant-search-stack.yml
 sed -i "s|<port>|$4|g" kant-search-stack.yml
 
 sed -i "s|<hostname>|$2|g" config/grafana/grafana.ini
-sed -i "s|http://localhost:5000/|https://$2/${base-path}|" config/frontend/config.json
+sed -i "s|http://localhost:5000|https://$2/${base_path}|" config/frontend/config.json
 sed -i "s|<port>|$4|" config/reverse-proxy.conf
 
 # Create log directory
+mkdir -p log/reverse-proxy
+mkdir -p log/frontend
 mkdir -p log/backend

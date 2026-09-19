@@ -1,7 +1,7 @@
 #!/bin/bash
 
-if [ "$#" -ne 2 ]; then
-    echo "Usage: $0 <kant-search version number> <hostname>"
+if [ "$#" -ne 4 ]; then
+    echo "Usage: $0 <kant-search version number> <hostname> <base-path> <port>"
     exit 1
 fi
 
@@ -14,12 +14,20 @@ unzip ks-frontend-config.zip
 rm ks-frontend-config.zip
 cd ..
 
-# Replace `<hostname>` placeholder
-base_domain=$(echo "$2" | awk -F. '{n=NF; print $(n-1)"."$n}')
-sed -i -E "s|(\/etc/letsencrypt/live/)<hostname>|\1$base_domain|g" kant-search-stack.yml
-sed -i -E "s|(https://)<hostname>|\1$2|g" kant-search-stack.yml
-sed -i -E "s|(domain = )<hostname>|\1$2|g" config/grafana/grafana.ini
-sed -i -E "s|(\"apiUrl\": \")http://localhost:5000|\1https://$2|g" config/frontend/config.json
+# Replace placeholders
+base_path=$3
+base_path="${base_path#/}"
+base_bath="${base_path%/}"
+sed -i "s|<version>|$1|g" kant-search-stack.yml
+sed -i "s|<hostname>|$2|g" kant-search-stack.yml
+sed -i "s|<base-path>|${base_path}|" kant-search-stack.yml
+sed -i "s|<port>|$4|g" kant-search-stack.yml
+
+sed -i "s|<hostname>|$2|g" config/grafana/grafana.ini
+sed -i "s|http://localhost:5000|https://$2/${base_path}|" config/frontend/config.json
+sed -i "s|<port>|$4|" config/reverse-proxy.conf
 
 # Create log directory
+mkdir -p log/reverse-proxy
+mkdir -p log/frontend
 mkdir -p log/backend

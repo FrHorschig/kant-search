@@ -18,7 +18,7 @@ Both the backend and the frontend are available as Docker containers as `ghcr.io
 - get a Let's Encrypt certificate for your domain, if you don't use Let's Encrypt, or don't use the current default settings, you must update the certificate paths in `kant-search-stack.yml`
 - copy the files from the `deployment` directory to your server
 - download and update the configuration by running the `scripts/generate-config.sh` script (specify hostname and base path without `/` at the start and end)
-- generate the necessary swarm secrets and passwords by running `scripts/generate-auth-files.sh` script; write down the generated admin password somewhere safe (it is used for uploading the XML files and for accessing and logging in to grafana)
+- generate the necessary swarm secrets and passwords by running `scripts/generate-auth-data.sh` script; write down the generated admin password somewhere safe (it is used for uploading the XML files and for accessing and logging in to grafana)
 - start the application with `docker stack deploy -c kant-search-stack.yml <stack name>`
 
 The stack also includes three containers for Grafana monitoring. To make these work, add your hostname and the username and password of the admin user to `config/grafana/grafana.ini` (users can also be added later via the UI). Note that you can import existing dashboard configurations, a good starting point is [this one](https://grafana.com/grafana/dashboards/193-docker-monitoring/).

@@ -24,6 +24,7 @@ sed -i "s|<base-path>|${base_path}|" kant-search-stack.yml
 sed -i "s|<port>|$4|g" kant-search-stack.yml
 
 sed -i "s|<hostname>|$2|g" config/grafana/grafana.ini
+sed -i "s|<base-path>|$base_path|g" config/grafana/grafana.ini
 sed -i "s|http://localhost:5000|https://$2/${base_path}|" config/frontend/config.json
 sed -i "s|<port>|$4|" config/reverse-proxy.conf
 

@@ -107,9 +107,6 @@ create_secret ksdb_password "$TMP_DIR/ksdb_password"
 USERNAME="$1"
 PASSWORD=$(tr -dc 'A-Za-z0-9' < /dev/urandom | head -c 64)
 
-sed -i "s|<admin-username>|$USERNAME|" config/grafana/grafana.ini
-sed -i "s|<admin-password>|$PASSWORD|" config/grafana/grafana.ini
-
 htpasswd -cbB "$TMP_DIR"/htpasswd-admin "$USERNAME" "$PASSWORD"
 create_secret htpasswd_admin "$TMP_DIR/htpasswd-admin"
 

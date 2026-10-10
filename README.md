@@ -21,17 +21,17 @@ Both the backend and the frontend are available as Docker containers as `ghcr.io
 - generate the necessary swarm secrets and passwords by running `scripts/generate-auth-data.sh` script; write down the generated admin password somewhere safe (it is used for uploading the XML files and for accessing grafana)
 - start the application with `docker stack deploy -c kant-search-stack.yml <stack name>`
 
-The stack also includes three containers for Grafana monitoring. To make these work, add your hostname and the username and password of the admin user to `config/grafana/grafana.ini` (users can also be added later via the UI). Note that you can import existing dashboard configurations, a good starting point is [this one](https://grafana.com/grafana/dashboards/193-docker-monitoring/).
+The stack also includes three containers for Grafana monitoring. With the default `kant-search-stack.yml`, you can reach the grafana dashboard at `https://<hostname-and-basepath>/grafana` and log in with the admin username and password from the `scripts/generate-auth-data.sh` script. Note that you can import existing dashboard configurations, a good starting point is [this one](https://grafana.com/grafana/dashboards/193-docker-monitoring/).
 
 If you want to deploy the applications without Docker, please refer to the [Elasticsearch](https://www.elastic.co/docs/solutions/search) documentation and the configuration documentation in the [backend](https://github.com/FrHorschig/kant-search-backend/) and [frontend](https://github.com/FrHorschig/kant-search-frontend/) README files.
 
 ## Upload of Kant-Korpus-XML files
 
-You can upload the Kant-Korpus-XML files via the backend upload endpoint at `https://<hostname+base-path>/api/v1/upload`. Use the admin username and password that were created by the `generate-auth-files.sh` script for authentication.
+You can upload the Kant-Korpus-XML files via the backend upload endpoint at `https://<hostname-and-basepath>/api/v1/upload`. Use the admin username and password from the `generate-auth-files.sh` script for authentication.
 
 Example `curl` command to upload the file `1.xml`:
 ```
-curl -X POST "https://<hostname+base-path>/api/v1/upload" \
+curl -X POST "https://<hostname-and-basepath>/api/v1/upload" \
     -H "Content-Type: application/xml" \
     -u "<username>:<password>" \
     --data-binary "@1.xml"
